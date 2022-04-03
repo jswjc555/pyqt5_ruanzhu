@@ -1,12 +1,17 @@
 from PyQt5.QtWidgets import *
 from login import Ui_login
 from main import Ui_MainWindow
+import sqlite3
 # from PyQt5.uic import loadUiType
 import sys
 from os import path
 import hashlib
 import re
 import datetime
+
+# 数据库文件
+db_file = "user_m.db"
+# 获取与数据库的连接
 
 
 # UI--Logic分离
@@ -180,15 +185,101 @@ border-radius:3px;
         self.hide_regist()
 
     def handle_login(self):
-        self.main_app = MainApp()
-        self.close()
-        self.main_app.show()
+        if not len(self.login_username.text()):
+            print("请输入用户名")
+        elif not len(self.login_psw.text()):
+            print("请输入密码")
+        elif len(self.login_username.text())\
+            and len(self.login_psw.text()):
+            db_conn = sqlite3.connect(db_file)
+            cur = db_conn.cursor()
+
+            sql_select = "SELECT * FROM account WHERE user_name=\'" + self.login_username.text() + "\'"
+            result = cur.execute(sql_select).fetchall()
+
+            if len(result):
+                if result[0][2] != self.login_psw.text():
+                    print("密码错误")
+                else:
+                    self.main_app = MainApp()
+                    self.close()
+                    self.main_app.show()
+
+            cur.close()
+            db_conn.close()
+
+    def user_regist(self):
+        # 请输入用户名
+        if not len(self.regist_userlineEdit.text()):
+            self.error_user.setText("用户名不能为空！")
+            self.error_psw.setText("")
+            self.error_confpsw.setText("")
+        # 请输入一致的密码
+        elif len(self.regist_pswlineEdit.text()) \
+                and len(self.regist_confpswlineEdit.text()) \
+                and self.regist_pswlineEdit.text() != self.regist_confpswlineEdit.text():
+            self.error_psw.setText("两次密码不一致！")
+            self.error_user.setText("")
+            self.error_confpsw.setText("")
+        # 请输入密码
+        elif not len(self.regist_pswlineEdit.text()):
+            self.error_psw.setText("密码不能为空！")
+            self.error_user.setText("")
+            self.error_confpsw.setText("")
+        # 确认密码不能为空
+        elif not len(self.regist_confpswlineEdit.text()):
+            self.error_confpsw.setText("确认密码不能为空！")
+            self.error_user.setText("")
+            self.error_psw.setText("")
+        # 注册，数据库插入数据
+
+        else:
+            db_conn = sqlite3.connect(db_file)
+            cur = db_conn.cursor()
+
+            sql_select = "SELECT * FROM account WHERE user_name=\'" + self.regist_userlineEdit.text() + "\'"
+            result = cur.execute(sql_select)
+            # 用户名与已有用户重复
+            if len(result.fetchall()):
+                self.error_user.setText("用户名已存在！")
+                self.error_psw.setText("")
+                self.error_confpsw.setText("")
+                self.regist_pswlineEdit.setText("")
+                self.regist_confpswlineEdit.setText("")
+            # 注册成功
+            else:
+                print("注册成功")
+                sql = "insert into account (user_name,password) " \
+                      "values(?,?)"
+                data = (self.regist_userlineEdit.text(),
+                        self.regist_pswlineEdit.text())
+                cur.execute(sql, data)
+                db_conn.commit()
+                self.regist_userlineEdit.setText("")
+                self.regist_pswlineEdit.setText("")
+                self.regist_confpswlineEdit.setText("")
+                self.selectInfo()
+                self.hide_regist()
+            cur.close()
+            db_conn.close()
+
+    def selectInfo(self):
+        userBox = QMessageBox()
+        userBox.setWindowTitle('注册')
+        userBox.setText('注册成功')
+        userBox.setStandardButtons(QMessageBox.Yes)
+        buttonY = userBox.button(QMessageBox.Yes)
+        buttonY.setText('确认')
+        userBox.exec_()
+
 
     def handle_buttons(self):
         self.login_registButton.clicked.connect(self.show_regist)
         self.regist_backButton.clicked.connect(self.hide_regist)
         self.login_logButton.clicked.connect(self.handle_login)
         self.login_exitButton.clicked.connect(self.close)
+        # cyh
+        self.regist_confButton.clicked.connect(self.user_regist)
 
 
 class MainApp(QMainWindow, Ui_MainWindow):
