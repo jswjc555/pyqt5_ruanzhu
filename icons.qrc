@@ -1,0 +1,13 @@
+<!DOCTYPE RCC><RCC version="1.0">
+ <qresource>
+     <file>icons/exit.png</file>
+     <file>icons/locate.png</file>
+     <file>icons/static.png</file>
+     <file>icons/user.png</file>
+     <file>icons/inputstatic.png</file>
+     <file>icons/input.png</file>
+     <file>icons/map.png</file>
+     <file>icons/score.png</file>
+     <file>icons/forecast.png</file>
+ </qresource>
+ </RCC>
