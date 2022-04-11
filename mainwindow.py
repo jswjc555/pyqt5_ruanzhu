@@ -1,8 +1,10 @@
+from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import *
 from PyQt5.uic import loadUiType
 import sys
 import sqlite3
 from PyQt5.QtCore import *
+import xlrd
 from PyQt5.QtGui import *
 import hashlib
 import re
@@ -201,17 +203,11 @@ border-radius:3px;
                     self.label_6.setText("")
                     self.login_psw.setText("")
                 else:
-                    print(1)
                     self.login_logButton.setText("")
-                    print(2)
                     self.login_psw.setText("")
-                    print(3)
                     self.main_app = MainApp()
-                    print(4)
                     self.close()
-                    print(5)
                     self.main_app.show()
-                    print(6)
             else:
                 self.label_6.setText("用户未注册！")
                 self.login_psw.setText("")
@@ -872,7 +868,9 @@ color:#C0DCF2;
         self.changeback_Button.clicked.connect(self.show_userfirst)
         self.user_logButton.clicked.connect(self.handle_login)
         self.user_editButton.clicked.connect(self.handle_rewrite)
-      
+        # 导入数据
+        self.saleimportButton.clicked.connect(self.handle_file_dialog)
+        self.locateimportButton.clicked.connect(self.handle_file_dialog2)
 
 
      # 选项卡联动
@@ -892,11 +890,85 @@ color:#C0DCF2;
     def show_userfirst(self):
         self.userWidget.setCurrentIndex(0)
 
+    def handle_file_dialog(self):
+        dig = QFileDialog()
+        dig.setFileMode(QFileDialog.ExistingFile)
+        dig.setFilter(QDir.Files)
 
+        if dig.exec_():
+            # 接受选中文件的路径，默认为列表
+            filenames = dig.selectedFiles()
+            # 列表中的第一个元素即是文件路径，以只读的方式打开文件
+            try:
+                table = xlrd.open_workbook(filenames[0])
+                if len(self.sale_numEdit.text()) == 0:
+                    print("请输入要读入的表格编号(从0开始的数字)")
+                    return
+                elif not self.sale_numEdit.text().isdigit():
+                    print("请确认输入的表格编号为数字")
+                    return
+                elif int(self.sale_numEdit.text()) - 1 > len(table.sheets()) - 1:
+                    print("输入的表格编号超出索引！")
+                    return
+                table_by_sheet0 = table.sheet_by_index(int(self.sale_numEdit.text()) - 1)
+                rows = table_by_sheet0.nrows
+                cols = table_by_sheet0.ncols
 
+                content_list = []
+                for i in range(rows):
+                    content_list.append(table_by_sheet0.row_values(i))
+                self.sale_view.setEditTriggers(QAbstractItemView.NoEditTriggers)
+                self.sale_view.clear()
+                self.sale_view.setHorizontalHeaderLabels(content_list[0])
+                # 添加下拉列表
+                self.salevar_comboBox.addItems(content_list[0])
+                self.sale_view.setSelectionBehavior(QAbstractItemView.SelectRows)
+                for i in range(max(rows - 1, 21)):
+                    for j in range(cols):
+                        item = QtWidgets.QTableWidgetItem(str(content_list[i + 1][j]))
+                        self.sale_view.setItem(i, j, item)
 
+            except Exception as e:
+                print(e)
 
+    def handle_file_dialog2(self):
+        dig = QFileDialog()
+        dig.setFileMode(QFileDialog.ExistingFile)
+        dig.setFilter(QDir.Files)
 
+        if dig.exec_():
+            # 接受选中文件的路径，默认为列表
+            filenames = dig.selectedFiles()
+            # 列表中的第一个元素即是文件路径，以只读的方式打开文件
+            try:
+                table = xlrd.open_workbook(filenames[0])
+                if len(self.locate_numEdit.text()) == 0:
+                    print("请输入要读入的表格编号(从0开始的数字)")
+                    return
+                elif not self.locate_numEdit.text().isdigit():
+                    print("请确认输入的表格编号为数字")
+                    return
+                elif int(self.locate_numEdit.text()) - 1 > len(table.sheets()) - 1:
+                    print("输入的表格编号超出索引！")
+                    return
+                table_by_sheet0 = table.sheet_by_index(int(self.locate_numEdit.text()) - 1)
+                rows = table_by_sheet0.nrows
+                cols = table_by_sheet0.ncols
+
+                content_list = []
+                for i in range(rows):
+                    content_list.append(table_by_sheet0.row_values(i))
+                self.locate_view.setEditTriggers(QAbstractItemView.NoEditTriggers)
+                self.locate_view.clear()
+                self.locate_view.setHorizontalHeaderLabels(content_list[0])
+                self.locate_view.setSelectionBehavior(QAbstractItemView.SelectRows)
+                for i in range(max(rows - 1, 21)):
+                    for j in range(cols):
+                        item = QtWidgets.QTableWidgetItem(str(content_list[i + 1][j]))
+                        self.locate_view.setItem(i, j, item)
+
+            except Exception as e:
+                print(e)
 
 
     def handle_login(self):
@@ -924,7 +996,6 @@ color:#C0DCF2;
                     self.error2.setText("")
                     self.error1.setText("")
             else:
-                print(1)
                 self.error1.setText("用户未注册！")
                 self.user_pswEdit.setText("")
 
