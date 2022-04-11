@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1044</width>
-    <height>658</height>
+    <width>1125</width>
+    <height>762</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -33,7 +33,7 @@
      <string>销售可视化</string>
     </property>
     <property name="icon">
-     <iconset resource="icons.qrc">
+     <iconset resource="venv/icons.qrc">
       <normaloff>:/icons/static.png</normaloff>:/icons/static.png</iconset>
     </property>
     <property name="iconSize">
@@ -62,7 +62,7 @@
      <string>选址可视化</string>
     </property>
     <property name="icon">
-     <iconset resource="icons.qrc">
+     <iconset resource="venv/icons.qrc">
       <normaloff>:/icons/locate.png</normaloff>:/icons/locate.png</iconset>
     </property>
     <property name="iconSize">
@@ -91,7 +91,7 @@
      <string>我的账户</string>
     </property>
     <property name="icon">
-     <iconset resource="icons.qrc">
+     <iconset resource="venv/icons.qrc">
       <normaloff>:/icons/user.png</normaloff>:/icons/user.png</iconset>
     </property>
     <property name="iconSize">
@@ -120,7 +120,7 @@
      <string> 退出系统  </string>
     </property>
     <property name="icon">
-     <iconset resource="icons.qrc">
+     <iconset resource="venv/icons.qrc">
       <normaloff>:/icons/exit.png</normaloff>:/icons/exit.png</iconset>
     </property>
     <property name="iconSize">
@@ -133,10 +133,10 @@
    <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
      <rect>
-      <x>200</x>
-      <y>20</y>
-      <width>761</width>
-      <height>551</height>
+      <x>190</x>
+      <y>30</y>
+      <width>921</width>
+      <height>691</height>
      </rect>
     </property>
     <property name="currentIndex">
@@ -151,8 +151,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>761</width>
-        <height>531</height>
+        <width>921</width>
+        <height>661</height>
        </rect>
       </property>
       <property name="currentIndex">
@@ -165,8 +165,8 @@
        <widget class="QPushButton" name="saleimportButton">
         <property name="geometry">
          <rect>
-          <x>290</x>
-          <y>130</y>
+          <x>680</x>
+          <y>40</y>
           <width>151</width>
           <height>61</height>
          </rect>
@@ -181,7 +181,7 @@
          <string>导入数据</string>
         </property>
         <property name="icon">
-         <iconset resource="icons.qrc">
+         <iconset resource="venv/icons.qrc">
           <normaloff>:/icons/inputstatic.png</normaloff>:/icons/inputstatic.png</iconset>
         </property>
         <property name="iconSize">
@@ -191,13 +191,13 @@
          </size>
         </property>
        </widget>
-       <widget class="QPushButton" name="saleinputButton">
+       <widget class="QLabel" name="label_8">
         <property name="geometry">
          <rect>
-          <x>290</x>
-          <y>240</y>
-          <width>151</width>
-          <height>61</height>
+          <x>50</x>
+          <y>30</y>
+          <width>211</width>
+          <height>31</height>
          </rect>
         </property>
         <property name="font">
@@ -207,18 +207,127 @@
          </font>
         </property>
         <property name="text">
-         <string>输入数据</string>
+         <string>请输入数据文件路径：</string>
         </property>
-        <property name="icon">
-         <iconset resource="icons.qrc">
-          <normaloff>:/icons/input.png</normaloff>:/icons/input.png</iconset>
+       </widget>
+       <widget class="QLabel" name="label_9">
+        <property name="geometry">
+         <rect>
+          <x>50</x>
+          <y>80</y>
+          <width>261</width>
+          <height>31</height>
+         </rect>
         </property>
-        <property name="iconSize">
-         <size>
-          <width>35</width>
-          <height>35</height>
-         </size>
+        <property name="font">
+         <font>
+          <family>微软雅黑</family>
+          <pointsize>12</pointsize>
+         </font>
         </property>
+        <property name="text">
+         <string>数据表在文件的表序号：</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="sale_pathEdit">
+        <property name="geometry">
+         <rect>
+          <x>290</x>
+          <y>30</y>
+          <width>281</width>
+          <height>31</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="sale_numEdit">
+        <property name="geometry">
+         <rect>
+          <x>290</x>
+          <y>80</y>
+          <width>281</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>1</string>
+        </property>
+       </widget>
+       <widget class="QGroupBox" name="groupBox">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>140</y>
+          <width>861</width>
+          <height>451</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+        <property name="title">
+         <string>前20条数据预览</string>
+        </property>
+        <widget class="QTableWidget" name="sale_view">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>20</y>
+           <width>841</width>
+           <height>421</height>
+          </rect>
+         </property>
+         <property name="rowCount">
+          <number>20</number>
+         </property>
+         <property name="columnCount">
+          <number>25</number>
+         </property>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <column/>
+         <column/>
+         <column/>
+         <column/>
+         <column/>
+         <column/>
+         <column/>
+         <column/>
+         <column/>
+         <column/>
+         <column/>
+         <column/>
+         <column/>
+         <column/>
+         <column/>
+         <column/>
+         <column/>
+         <column/>
+         <column/>
+         <column/>
+         <column/>
+         <column/>
+         <column/>
+         <column/>
+         <column/>
+        </widget>
        </widget>
       </widget>
       <widget class="QWidget" name="sale_outputtab">
@@ -228,7 +337,7 @@
        <widget class="QLabel" name="label">
         <property name="geometry">
          <rect>
-          <x>60</x>
+          <x>230</x>
           <y>30</y>
           <width>221</width>
           <height>31</height>
@@ -247,7 +356,7 @@
        <widget class="QLabel" name="label_2">
         <property name="geometry">
          <rect>
-          <x>60</x>
+          <x>230</x>
           <y>80</y>
           <width>221</width>
           <height>31</height>
@@ -266,7 +375,7 @@
        <widget class="QComboBox" name="salevar_comboBox">
         <property name="geometry">
          <rect>
-          <x>310</x>
+          <x>480</x>
           <y>30</y>
           <width>201</width>
           <height>31</height>
@@ -276,7 +385,7 @@
        <widget class="QComboBox" name="salechart_comboBox">
         <property name="geometry">
          <rect>
-          <x>310</x>
+          <x>480</x>
           <y>80</y>
           <width>201</width>
           <height>31</height>
@@ -286,7 +395,7 @@
        <widget class="QPushButton" name="saleanl_Button">
         <property name="geometry">
          <rect>
-          <x>570</x>
+          <x>770</x>
           <y>80</y>
           <width>93</width>
           <height>28</height>
@@ -301,8 +410,8 @@
          <rect>
           <x>60</x>
           <y>130</y>
-          <width>581</width>
-          <height>291</height>
+          <width>831</width>
+          <height>491</height>
          </rect>
         </property>
         <property name="styleSheet">
@@ -324,12 +433,12 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>761</width>
-        <height>531</height>
+        <width>921</width>
+        <height>671</height>
        </rect>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="locate_inputtab">
        <attribute name="title">
@@ -338,8 +447,8 @@
        <widget class="QPushButton" name="locateimportButton">
         <property name="geometry">
          <rect>
-          <x>290</x>
-          <y>130</y>
+          <x>680</x>
+          <y>40</y>
           <width>151</width>
           <height>61</height>
          </rect>
@@ -354,7 +463,7 @@
          <string>导入数据</string>
         </property>
         <property name="icon">
-         <iconset resource="icons.qrc">
+         <iconset resource="venv/icons.qrc">
           <normaloff>:/icons/inputstatic.png</normaloff>:/icons/inputstatic.png</iconset>
         </property>
         <property name="iconSize">
@@ -364,13 +473,36 @@
          </size>
         </property>
        </widget>
-       <widget class="QPushButton" name="locateinputButton">
+       <widget class="QLineEdit" name="locate_numEdit">
         <property name="geometry">
          <rect>
           <x>290</x>
-          <y>240</y>
-          <width>151</width>
-          <height>61</height>
+          <y>80</y>
+          <width>281</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>1</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="locate_pathEdit">
+        <property name="geometry">
+         <rect>
+          <x>290</x>
+          <y>30</y>
+          <width>281</width>
+          <height>31</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_10">
+        <property name="geometry">
+         <rect>
+          <x>50</x>
+          <y>30</y>
+          <width>211</width>
+          <height>31</height>
          </rect>
         </property>
         <property name="font">
@@ -380,18 +512,104 @@
          </font>
         </property>
         <property name="text">
-         <string>输入数据</string>
+         <string>请输入数据文件路径：</string>
         </property>
-        <property name="icon">
-         <iconset resource="icons.qrc">
-          <normaloff>:/icons/input.png</normaloff>:/icons/input.png</iconset>
+       </widget>
+       <widget class="QLabel" name="label_11">
+        <property name="geometry">
+         <rect>
+          <x>50</x>
+          <y>80</y>
+          <width>261</width>
+          <height>31</height>
+         </rect>
         </property>
-        <property name="iconSize">
-         <size>
-          <width>35</width>
-          <height>35</height>
-         </size>
+        <property name="font">
+         <font>
+          <family>微软雅黑</family>
+          <pointsize>12</pointsize>
+         </font>
         </property>
+        <property name="text">
+         <string>数据表在文件的表序号：</string>
+        </property>
+       </widget>
+       <widget class="QGroupBox" name="groupBox_2">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>130</y>
+          <width>871</width>
+          <height>481</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+        <property name="title">
+         <string>前20条数据预览</string>
+        </property>
+        <widget class="QTableWidget" name="locate_view">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>20</y>
+           <width>841</width>
+           <height>441</height>
+          </rect>
+         </property>
+         <property name="rowCount">
+          <number>20</number>
+         </property>
+         <property name="columnCount">
+          <number>25</number>
+         </property>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <column/>
+         <column/>
+         <column/>
+         <column/>
+         <column/>
+         <column/>
+         <column/>
+         <column/>
+         <column/>
+         <column/>
+         <column/>
+         <column/>
+         <column/>
+         <column/>
+         <column/>
+         <column/>
+         <column/>
+         <column/>
+         <column/>
+         <column/>
+         <column/>
+         <column/>
+         <column/>
+         <column/>
+         <column/>
+        </widget>
        </widget>
       </widget>
       <widget class="QWidget" name="locate_choosetab">
@@ -401,8 +619,8 @@
        <widget class="QPushButton" name="locate_fcsButton">
         <property name="geometry">
          <rect>
-          <x>270</x>
-          <y>110</y>
+          <x>360</x>
+          <y>130</y>
           <width>191</width>
           <height>61</height>
          </rect>
@@ -417,7 +635,7 @@
          <string>销售预测</string>
         </property>
         <property name="icon">
-         <iconset resource="icons.qrc">
+         <iconset resource="venv/icons.qrc">
           <normaloff>:/icons/forecast.png</normaloff>:/icons/forecast.png</iconset>
         </property>
         <property name="iconSize">
@@ -430,8 +648,8 @@
        <widget class="QPushButton" name="locate_topsisButton">
         <property name="geometry">
          <rect>
-          <x>270</x>
-          <y>200</y>
+          <x>360</x>
+          <y>220</y>
           <width>191</width>
           <height>61</height>
          </rect>
@@ -446,7 +664,7 @@
          <string>Topsis选址</string>
         </property>
         <property name="icon">
-         <iconset resource="icons.qrc">
+         <iconset resource="venv/icons.qrc">
           <normaloff>:/icons/score.png</normaloff>:/icons/score.png</iconset>
         </property>
         <property name="iconSize">
@@ -459,8 +677,8 @@
        <widget class="QPushButton" name="locate_kmeansButton">
         <property name="geometry">
          <rect>
-          <x>270</x>
-          <y>290</y>
+          <x>360</x>
+          <y>310</y>
           <width>191</width>
           <height>61</height>
          </rect>
@@ -475,7 +693,7 @@
          <string>K-means选址</string>
         </property>
         <property name="icon">
-         <iconset resource="icons.qrc">
+         <iconset resource="venv/icons.qrc">
           <normaloff>:/icons/map.png</normaloff>:/icons/map.png</iconset>
         </property>
         <property name="iconSize">
@@ -495,8 +713,8 @@
          <rect>
           <x>10</x>
           <y>20</y>
-          <width>731</width>
-          <height>401</height>
+          <width>891</width>
+          <height>551</height>
          </rect>
         </property>
         <property name="styleSheet">
@@ -509,8 +727,8 @@
        <widget class="QPushButton" name="locate_backButton">
         <property name="geometry">
          <rect>
-          <x>350</x>
-          <y>440</y>
+          <x>430</x>
+          <y>580</y>
           <width>93</width>
           <height>28</height>
          </rect>
@@ -530,9 +748,9 @@
       <property name="geometry">
        <rect>
         <x>-10</x>
-        <y>0</y>
-        <width>771</width>
-        <height>531</height>
+        <y>-10</y>
+        <width>921</width>
+        <height>661</height>
        </rect>
       </property>
       <property name="currentIndex">
@@ -545,8 +763,8 @@
        <widget class="QPushButton" name="user_saleButton">
         <property name="geometry">
          <rect>
-          <x>290</x>
-          <y>100</y>
+          <x>350</x>
+          <y>170</y>
           <width>191</width>
           <height>51</height>
          </rect>
@@ -560,12 +778,22 @@
         <property name="text">
          <string>销售可视化记录</string>
         </property>
+        <property name="icon">
+         <iconset resource="venv/icons.qrc">
+          <normaloff>:/icons/review_1.png</normaloff>:/icons/review_1.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>35</width>
+          <height>35</height>
+         </size>
+        </property>
        </widget>
        <widget class="QPushButton" name="user_locateButton">
         <property name="geometry">
          <rect>
-          <x>290</x>
-          <y>180</y>
+          <x>350</x>
+          <y>250</y>
           <width>191</width>
           <height>51</height>
          </rect>
@@ -579,12 +807,22 @@
         <property name="text">
          <string>选址可视化记录</string>
         </property>
+        <property name="icon">
+         <iconset resource="venv/icons.qrc">
+          <normaloff>:/icons/review_2.png</normaloff>:/icons/review_2.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>35</width>
+          <height>35</height>
+         </size>
+        </property>
        </widget>
        <widget class="QPushButton" name="user_infButton">
         <property name="geometry">
          <rect>
-          <x>290</x>
-          <y>260</y>
+          <x>350</x>
+          <y>330</y>
           <width>191</width>
           <height>51</height>
          </rect>
@@ -598,6 +836,16 @@
         <property name="text">
          <string>用户信息修改</string>
         </property>
+        <property name="icon">
+         <iconset resource="venv/icons.qrc">
+          <normaloff>:/icons/rewrite.png</normaloff>:/icons/rewrite.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>35</width>
+          <height>35</height>
+         </size>
+        </property>
        </widget>
       </widget>
       <widget class="QWidget" name="user_inftab">
@@ -607,8 +855,8 @@
        <widget class="QGroupBox" name="user_registBox">
         <property name="geometry">
          <rect>
-          <x>130</x>
-          <y>50</y>
+          <x>260</x>
+          <y>90</y>
           <width>391</width>
           <height>131</height>
          </rect>
@@ -661,6 +909,9 @@
            <height>21</height>
           </rect>
          </property>
+         <property name="echoMode">
+          <enum>QLineEdit::Password</enum>
+         </property>
         </widget>
         <widget class="QPushButton" name="user_logButton">
          <property name="geometry">
@@ -675,6 +926,32 @@
           <string>登录</string>
          </property>
         </widget>
+        <widget class="QLabel" name="error1">
+         <property name="geometry">
+          <rect>
+           <x>290</x>
+           <y>30</y>
+           <width>101</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+        <widget class="QLabel" name="error2">
+         <property name="geometry">
+          <rect>
+           <x>290</x>
+           <y>60</y>
+           <width>101</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
        </widget>
        <widget class="QGroupBox" name="user_editBox">
         <property name="enabled">
@@ -682,8 +959,8 @@
         </property>
         <property name="geometry">
          <rect>
-          <x>130</x>
-          <y>200</y>
+          <x>260</x>
+          <y>280</y>
           <width>391</width>
           <height>181</height>
          </rect>
@@ -736,6 +1013,9 @@
            <height>21</height>
           </rect>
          </property>
+         <property name="echoMode">
+          <enum>QLineEdit::Password</enum>
+         </property>
         </widget>
         <widget class="QLabel" name="label_7">
          <property name="geometry">
@@ -759,6 +1039,9 @@
            <height>21</height>
           </rect>
          </property>
+         <property name="echoMode">
+          <enum>QLineEdit::Password</enum>
+         </property>
         </widget>
         <widget class="QPushButton" name="user_editButton">
          <property name="geometry">
@@ -773,12 +1056,51 @@
           <string>修改</string>
          </property>
         </widget>
+        <widget class="QLabel" name="error3">
+         <property name="geometry">
+          <rect>
+           <x>290</x>
+           <y>40</y>
+           <width>101</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+        <widget class="QLabel" name="error4">
+         <property name="geometry">
+          <rect>
+           <x>290</x>
+           <y>70</y>
+           <width>101</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+        <widget class="QLabel" name="error5">
+         <property name="geometry">
+          <rect>
+           <x>290</x>
+           <y>100</y>
+           <width>101</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
        </widget>
        <widget class="QPushButton" name="changeback_Button">
         <property name="geometry">
          <rect>
-          <x>560</x>
-          <y>340</y>
+          <x>720</x>
+          <y>410</y>
           <width>93</width>
           <height>28</height>
          </rect>
@@ -796,13 +1118,71 @@
      </widget>
     </widget>
    </widget>
+   <widget class="QLabel" name="time_label">
+    <property name="geometry">
+     <rect>
+      <x>860</x>
+      <y>10</y>
+      <width>241</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>方正粗黑宋简体</family>
+      <pointsize>9</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(221, 221, 221);
+font: 9pt &quot;方正粗黑宋简体&quot;;</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_12">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>530</y>
+      <width>161</width>
+      <height>131</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">image: url(:/icons/pic.png);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_13">
+    <property name="geometry">
+     <rect>
+      <x>790</x>
+      <y>10</y>
+      <width>61</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">image: url(:/icons/time.png);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1044</width>
+     <width>1125</width>
      <height>26</height>
     </rect>
    </property>
@@ -810,7 +1190,7 @@
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources>
-  <include location="icons.qrc"/>
+  <include location="venv/icons.qrc"/>
  </resources>
  <connections/>
 </ui>

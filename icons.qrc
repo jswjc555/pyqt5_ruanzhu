@@ -9,5 +9,10 @@
      <file>icons/map.png</file>
      <file>icons/score.png</file>
      <file>icons/forecast.png</file>
+     <file>icons/pic.png</file>
+     <file>icons/time.png</file>
+     <file>icons/review_1.png</file>
+     <file>icons/review_2.png</file>
+     <file>icons/rewrite.png</file>
  </qresource>
  </RCC>
