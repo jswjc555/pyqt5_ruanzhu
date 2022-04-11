@@ -5,10 +5,17 @@ import sys
 import sqlite3
 from PyQt5.QtCore import *
 import xlrd
-from PyQt5.QtGui import *
-import hashlib
-import re
-import datetime
+import matplotlib.pyplot as plt
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib
+# 使用 matplotlib中的FigureCanvas (在使用 Qt5 Backends中 FigureCanvas继承自QtWidgets.QWidget)
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+# from PyQt5.QtGui import *
+# import hashlib
+# import re
+# import datetime
 
 # UI--Logic分离
 ui, _ = loadUiType('main.ui')
@@ -177,8 +184,10 @@ border-radius:3px;
         self.label_6.setText("")
         self.label_7.setText("")
         self.registBox.show()
+
     def hide_regist(self):
         self.registBox.hide()
+
     def handle_ui_change(self):
         self.hide_regist()
 
@@ -211,8 +220,6 @@ border-radius:3px;
             else:
                 self.label_6.setText("用户未注册！")
                 self.login_psw.setText("")
-
-
 
             cur.close()
             db_conn.close()
@@ -271,7 +278,6 @@ border-radius:3px;
             cur.close()
             db_conn.close()
 
-
     def selectInfo(self):
         userBox = QMessageBox()
         userBox.setWindowTitle('注册')
@@ -281,7 +287,6 @@ border-radius:3px;
         buttonY.setText('确认')
         userBox.exec_()
 
-
     def handle_buttons(self):
         self.login_registButton.clicked.connect(self.show_regist)
         self.regist_backButton.clicked.connect(self.hide_regist)
@@ -289,12 +294,17 @@ border-radius:3px;
         self.login_exitButton.clicked.connect(self.close)
         self.regist_confButton.clicked.connect(self.user_regist)
 
+
 class MainApp(QMainWindow, ui):
     def __init__(self):
         QMainWindow.__init__(self)
         self.setupUi(self)
         self.handle_ui_change()
         self.handle_buttons()
+        self.datafile = ""
+        self.sheet_name = 0
+        self.figure = plt.figure(facecolor='#FFD7C4')  # 可选参数,facecolor为背景颜色
+        self.canvas = FigureCanvas(self.figure)
 
         qssStyle = '''
  QPalette{background:#EAF7FF;}*{outline:0px;color:#386487;}
@@ -838,24 +848,17 @@ color:#C0DCF2;
         self.timer.start()
 
     def showTime(self):
-            # 获取系统当前时间
-            time = QDateTime.currentDateTime()
-            # 设置系统时间的显示格式
-            timeDisplay = time.toString('yyyy-MM-dd hh:mm:ss dddd')
-            # 在标签上显示时间
-            self.time_label.setText("     " + timeDisplay)
+        # 获取系统当前时间
+        time = QDateTime.currentDateTime()
+        # 设置系统时间的显示格式
+        timeDisplay = time.toString('yyyy-MM-dd hh:mm:ss dddd')
+        # 在标签上显示时间
+        self.time_label.setText("     " + timeDisplay)
 
-
-
-
-
-# UI变化处理
+    # UI变化处理
     def handle_ui_change(self):
-       self.tabWidget.tabBar().setVisible(False)
-       self.userWidget.tabBar().setVisible(False)
-
-
-
+        self.tabWidget.tabBar().setVisible(False)
+        self.userWidget.tabBar().setVisible(False)
 
     # 所有Button的消息与槽的通信
     def handle_buttons(self):
@@ -871,24 +874,43 @@ color:#C0DCF2;
         # 导入数据
         self.saleimportButton.clicked.connect(self.handle_file_dialog)
         self.locateimportButton.clicked.connect(self.handle_file_dialog2)
+        # 数据可视化
+        self.saleanl_Button.clicked.connect(self.handle_data_visual)
 
-
-     # 选项卡联动
+    # 选项卡联动
     def open_sale_tab(self):
         self.tabWidget.setCurrentIndex(0)
         self.sale_tabWidget.setCurrentIndex(0)
+
     def open_locate_tab(self):
         self.tabWidget.setCurrentIndex(1)
         self.locate_tab.setCurrentIndex(0)
+
     def open_user_tab(self):
         self.tabWidget.setCurrentIndex(2)
         self.userWidget.setCurrentIndex(0)
+
     def back_locate_tab(self):
         self.locate_tab.setCurrentIndex(1)
+
     def show_userchoice(self):
         self.userWidget.setCurrentIndex(1)
+
     def show_userfirst(self):
         self.userWidget.setCurrentIndex(0)
+
+    def handle_data_visual(self):
+        plt.rcParams['font.sans-serif'] = ['SimHei']
+        plt.rcParams['axes.unicode_minus'] = False  # 解决保存图像是负号'-'显示为方块的问题
+        if self.datafile == "":
+            print("请先导入数据")
+            return
+        pd_data = pd.read_excel(self.datafile, sheet_name=self.sheet_name)
+        p_new = pd_data.groupby(['细分']).size()
+        plt.pie(p_new.tolist(), labels=p_new.index, autopct='%3.1f%%')
+        plt.title('股票每年成交笔数饼图')  # 加标题
+        plt.show()
+        self.canvas.draw()
 
     def handle_file_dialog(self):
         dig = QFileDialog()
@@ -898,6 +920,7 @@ color:#C0DCF2;
         if dig.exec_():
             # 接受选中文件的路径，默认为列表
             filenames = dig.selectedFiles()
+            self.datafile = filenames[0]
             # 列表中的第一个元素即是文件路径，以只读的方式打开文件
             try:
                 table = xlrd.open_workbook(filenames[0])
@@ -910,6 +933,7 @@ color:#C0DCF2;
                 elif int(self.sale_numEdit.text()) - 1 > len(table.sheets()) - 1:
                     print("输入的表格编号超出索引！")
                     return
+                self.sheet_name = int(self.sale_numEdit.text()) - 1
                 table_by_sheet0 = table.sheet_by_index(int(self.sale_numEdit.text()) - 1)
                 rows = table_by_sheet0.nrows
                 cols = table_by_sheet0.ncols
@@ -969,7 +993,6 @@ color:#C0DCF2;
 
             except Exception as e:
                 print(e)
-
 
     def handle_login(self):
         if not len(self.user_nameEdit.text()):
@@ -1037,7 +1060,7 @@ color:#C0DCF2;
             old_name = self.user_nameEdit.text()
             new_name = self.user_nnameEdit.text()
             new_psw = self.user_npswEdit.text()
-            sql = "UPDATE account SET user_name=?,password=? WHERE user_name=\'" +old_name +"\'"
+            sql = "UPDATE account SET user_name=?,password=? WHERE user_name=\'" + old_name + "\'"
             # 4、执行语句
             cur.execute(sql, (new_name, new_psw))
             self.user_nameEdit.setText("")
@@ -1045,22 +1068,17 @@ color:#C0DCF2;
             self.user_nnameEdit.setText("")
             self.user_npswEdit.setText("")
             self.user_confpswfEdit.setText("")
-            self.statusBar().showMessage('用户信息修改成功！',5000)
+            self.statusBar().showMessage('用户信息修改成功！', 5000)
             # 5、insert、update、delete必须显示提交
             db_conn.commit()
             cur.close()
             db_conn.close()
 
-
-
-
-
-
     def exit_sys(self):
         messageBox = QMessageBox()
         messageBox.setWindowTitle('退出系统')
         messageBox.setText('确认退出吗？')
-        messageBox.setStandardButtons(QMessageBox.Yes | QMessageBox.No| QMessageBox.Cancel)
+        messageBox.setStandardButtons(QMessageBox.Yes | QMessageBox.No | QMessageBox.Cancel)
         buttonY = messageBox.button(QMessageBox.Yes)
         buttonY.setText('退出系统')
         buttonN = messageBox.button(QMessageBox.No)
@@ -1076,6 +1094,7 @@ color:#C0DCF2;
             self.main_app.show()
         else:
             return
+
 
 def main():
     app = QApplication(sys.argv)
