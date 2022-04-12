@@ -303,7 +303,7 @@ class MainApp(QMainWindow, ui):
         self.handle_buttons()
         self.datafile = ""
         self.sheet_name = 0
-        self.salechart_comboBox.addItems(["饼状图","柱状图"])
+        self.salechart_comboBox.addItems(["饼状图","条形图","散点图","折线图","热力图"])
 
         qssStyle = '''
  QPalette{background:#EAF7FF;}*{outline:0px;color:#386487;}
@@ -910,6 +910,35 @@ color:#C0DCF2;
             val,ind = self.set_pie(p_new)
             plt.pie(val, labels=ind, autopct='%3.1f%%')
             plt.show()
+        elif self.salechart_comboBox.currentText() == "条形图":
+            val, ind = self.set_bar(p_new)
+            plt.bar(x=range(len(ind)),  # 指定条形图x轴的刻度值(有的是用left，有的要用x)
+                    height=val,  # 指定条形图y轴的数值（python3.7不能用y，而应该用height）
+                    tick_label=ind,  # 指定条形图x轴的刻度标签
+                    color='steelblue',  # 指定条形图的填充色
+                    )
+            for i in range(len(val)):
+                plt.text(i, val[i] + 0.1, "%s" % round(val[i], 1), ha='center')  # round(y,1)是将y值四舍五入到一个小数位
+            plt.show()
+        elif self.salechart_comboBox.currentText() == "散点图":
+            val, ind = self.set_scatter(p_new)
+            plt.scatter(ind, val, marker='o')
+            plt.show()
+        elif self.salechart_comboBox.currentText() == "折线图":
+            val, ind = self.set_plot(p_new)
+            plt.plot(ind, val)
+            plt.show()
+        elif self.salechart_comboBox.currentText() == "热力图":
+            if not self.sheet_name == 0:
+                print("该图表不支持热力图")
+                return
+            pd_data.drop(["行 ID", "订单 ID", "订单日期", "发货日期", "邮寄方式", "客户 ID", "客户名称", "细分",
+                          "城市", "省/自治区", "国家/地区", "地区", "产品 ID", "类别", "子类别", "产品名称"], axis=1, inplace=True)
+            corr = pd_data.corr()
+            ax = sns.heatmap(corr, vmax=.8, square=True, annot=True)
+            plt.xticks(fontsize=20)
+            plt.yticks(fontsize=20)
+            plt.show()
 
     def handle_file_dialog(self):
         dig = QFileDialog()
@@ -1075,10 +1104,10 @@ color:#C0DCF2;
 
     def set_pie(self,p_new):
         if len(p_new.tolist()) <= 20:
-            plt.figure(num=self.salevar_comboBox.currentText()+"统计图")  # 可选参数,facecolor为背景颜色
+            plt.figure(num=self.salevar_comboBox.currentText()+"饼状图")  # 可选参数,facecolor为背景颜色
             plt.title(self.salevar_comboBox.currentText()+"可视化"+self.salechart_comboBox.currentText())  # 加标题
             return p_new.tolist(), p_new.index
-        plt.figure(num=self.salevar_comboBox.currentText() + "Top20统计图")  # 可选参数,facecolor为背景颜色
+        plt.figure(num=self.salevar_comboBox.currentText() + "Top20饼状统计图")  # 可选参数,facecolor为背景颜色
         plt.title(self.salevar_comboBox.currentText() + "Top20可视化" + self.salechart_comboBox.currentText())  # 加标题
         dict = {}
         val = []
@@ -1096,6 +1125,79 @@ color:#C0DCF2;
                 n_qi += x[1]
             i += 1
         return val, ind
+
+    def set_bar(self,p_new):
+        if len(p_new.tolist()) <= 12:
+            plt.figure(num=self.salevar_comboBox.currentText()+"条形统计图")  # 可选参数,facecolor为背景颜色
+            plt.title(self.salevar_comboBox.currentText()+"可视化"+self.salechart_comboBox.currentText())  # 加标题
+            return p_new.tolist(), p_new.index
+        plt.figure(num=self.salevar_comboBox.currentText() + "Top12条形统计图")  # 可选参数,facecolor为背景颜色
+        plt.title(self.salevar_comboBox.currentText() + "Top12可视化" + self.salechart_comboBox.currentText())  # 加标题
+        dict = {}
+        val = []
+        ind = []
+        for i in range(len(p_new.tolist())):
+            dict[p_new.index[i]] = p_new.tolist()[i]
+        t = sorted(dict.items(), key=lambda x: x[1], reverse=True)
+        i = 0
+        n_qi = 0
+        for x in t:
+            if i < 12:
+                ind.append(x[0])
+                val.append(x[1])
+            else:
+                n_qi += x[1]
+            i += 1
+        return val, ind
+
+    def set_scatter(self,p_new):
+        if len(p_new.tolist()) <= 12:
+            plt.figure(num=self.salevar_comboBox.currentText()+"散点统计图")  # 可选参数,facecolor为背景颜色
+            plt.title(self.salevar_comboBox.currentText()+"可视化"+self.salechart_comboBox.currentText())  # 加标题
+            return p_new.tolist(), p_new.index
+        plt.figure(num=self.salevar_comboBox.currentText() + "Top12散点统计图")  # 可选参数,facecolor为背景颜色
+        plt.title(self.salevar_comboBox.currentText() + "Top12可视化" + self.salechart_comboBox.currentText())  # 加标题
+        dict = {}
+        val = []
+        ind = []
+        for i in range(len(p_new.tolist())):
+            dict[p_new.index[i]] = p_new.tolist()[i]
+        t = sorted(dict.items(), key=lambda x: x[1], reverse=True)
+        i = 0
+        n_qi = 0
+        for x in t:
+            if i < 12:
+                ind.append(x[0])
+                val.append(x[1])
+            else:
+                n_qi += x[1]
+            i += 1
+        return val, ind
+
+    def set_plot(self,p_new):
+        if len(p_new.tolist()) <= 12:
+            plt.figure(num=self.salevar_comboBox.currentText()+"折线统计图")  # 可选参数,facecolor为背景颜色
+            plt.title(self.salevar_comboBox.currentText()+"可视化"+self.salechart_comboBox.currentText())  # 加标题
+            return p_new.tolist(), p_new.index
+        plt.figure(num=self.salevar_comboBox.currentText() + "Top12折线统计图")  # 可选参数,facecolor为背景颜色
+        plt.title(self.salevar_comboBox.currentText() + "Top12可视化" + self.salechart_comboBox.currentText())  # 加标题
+        dict = {}
+        val = []
+        ind = []
+        for i in range(len(p_new.tolist())):
+            dict[p_new.index[i]] = p_new.tolist()[i]
+        t = sorted(dict.items(), key=lambda x: x[1], reverse=True)
+        i = 0
+        n_qi = 0
+        for x in t:
+            if i < 12:
+                ind.append(x[0])
+                val.append(x[1])
+            else:
+                n_qi += x[1]
+            i += 1
+        return val, ind
+
 
     def exit_sys(self):
         messageBox = QMessageBox()

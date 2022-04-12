@@ -33,7 +33,7 @@
      <string>销售可视化</string>
     </property>
     <property name="icon">
-     <iconset resource="venv/icons.qrc">
+     <iconset>
       <normaloff>:/icons/static.png</normaloff>:/icons/static.png</iconset>
     </property>
     <property name="iconSize">
@@ -62,7 +62,7 @@
      <string>选址可视化</string>
     </property>
     <property name="icon">
-     <iconset resource="venv/icons.qrc">
+     <iconset>
       <normaloff>:/icons/locate.png</normaloff>:/icons/locate.png</iconset>
     </property>
     <property name="iconSize">
@@ -91,7 +91,7 @@
      <string>我的账户</string>
     </property>
     <property name="icon">
-     <iconset resource="venv/icons.qrc">
+     <iconset>
       <normaloff>:/icons/user.png</normaloff>:/icons/user.png</iconset>
     </property>
     <property name="iconSize">
@@ -120,7 +120,7 @@
      <string> 退出系统  </string>
     </property>
     <property name="icon">
-     <iconset resource="venv/icons.qrc">
+     <iconset>
       <normaloff>:/icons/exit.png</normaloff>:/icons/exit.png</iconset>
     </property>
     <property name="iconSize">
@@ -156,7 +156,7 @@
        </rect>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="sale_inputtab">
        <attribute name="title">
@@ -181,7 +181,7 @@
          <string>导入数据</string>
         </property>
         <property name="icon">
-         <iconset resource="venv/icons.qrc">
+         <iconset>
           <normaloff>:/icons/inputstatic.png</normaloff>:/icons/inputstatic.png</iconset>
         </property>
         <property name="iconSize">
@@ -463,7 +463,7 @@
          <string>导入数据</string>
         </property>
         <property name="icon">
-         <iconset resource="venv/icons.qrc">
+         <iconset>
           <normaloff>:/icons/inputstatic.png</normaloff>:/icons/inputstatic.png</iconset>
         </property>
         <property name="iconSize">
@@ -635,7 +635,7 @@
          <string>销售预测</string>
         </property>
         <property name="icon">
-         <iconset resource="venv/icons.qrc">
+         <iconset>
           <normaloff>:/icons/forecast.png</normaloff>:/icons/forecast.png</iconset>
         </property>
         <property name="iconSize">
@@ -664,7 +664,7 @@
          <string>Topsis选址</string>
         </property>
         <property name="icon">
-         <iconset resource="venv/icons.qrc">
+         <iconset>
           <normaloff>:/icons/score.png</normaloff>:/icons/score.png</iconset>
         </property>
         <property name="iconSize">
@@ -693,7 +693,7 @@
          <string>K-means选址</string>
         </property>
         <property name="icon">
-         <iconset resource="venv/icons.qrc">
+         <iconset>
           <normaloff>:/icons/map.png</normaloff>:/icons/map.png</iconset>
         </property>
         <property name="iconSize">
@@ -779,7 +779,7 @@
          <string>销售可视化记录</string>
         </property>
         <property name="icon">
-         <iconset resource="venv/icons.qrc">
+         <iconset>
           <normaloff>:/icons/review_1.png</normaloff>:/icons/review_1.png</iconset>
         </property>
         <property name="iconSize">
@@ -808,7 +808,7 @@
          <string>选址可视化记录</string>
         </property>
         <property name="icon">
-         <iconset resource="venv/icons.qrc">
+         <iconset>
           <normaloff>:/icons/review_2.png</normaloff>:/icons/review_2.png</iconset>
         </property>
         <property name="iconSize">
@@ -837,7 +837,7 @@
          <string>用户信息修改</string>
         </property>
         <property name="icon">
-         <iconset resource="venv/icons.qrc">
+         <iconset>
           <normaloff>:/icons/rewrite.png</normaloff>:/icons/rewrite.png</iconset>
         </property>
         <property name="iconSize">
@@ -1189,8 +1189,6 @@ font: 9pt &quot;方正粗黑宋简体&quot;;</string>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources>
-  <include location="venv/icons.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>
