@@ -303,8 +303,7 @@ class MainApp(QMainWindow, ui):
         self.handle_buttons()
         self.datafile = ""
         self.sheet_name = 0
-        self.figure = plt.figure(facecolor='#FFD7C4')  # 可选参数,facecolor为背景颜色
-        self.canvas = FigureCanvas(self.figure)
+        self.salechart_comboBox.addItems(["饼状图","柱状图"])
 
         qssStyle = '''
  QPalette{background:#EAF7FF;}*{outline:0px;color:#386487;}
@@ -906,11 +905,11 @@ color:#C0DCF2;
             print("请先导入数据")
             return
         pd_data = pd.read_excel(self.datafile, sheet_name=self.sheet_name)
-        p_new = pd_data.groupby(['细分']).size()
-        plt.pie(p_new.tolist(), labels=p_new.index, autopct='%3.1f%%')
-        plt.title('股票每年成交笔数饼图')  # 加标题
-        plt.show()
-        self.canvas.draw()
+        p_new = pd_data.groupby([self.salevar_comboBox.currentText()]).size()
+        if self.salechart_comboBox.currentText() == "饼状图":
+            val,ind = self.set_pie(p_new)
+            plt.pie(val, labels=ind, autopct='%3.1f%%')
+            plt.show()
 
     def handle_file_dialog(self):
         dig = QFileDialog()
@@ -1073,6 +1072,30 @@ color:#C0DCF2;
             db_conn.commit()
             cur.close()
             db_conn.close()
+
+    def set_pie(self,p_new):
+        if len(p_new.tolist()) <= 20:
+            plt.figure(num=self.salevar_comboBox.currentText()+"统计图")  # 可选参数,facecolor为背景颜色
+            plt.title(self.salevar_comboBox.currentText()+"可视化"+self.salechart_comboBox.currentText())  # 加标题
+            return p_new.tolist(), p_new.index
+        plt.figure(num=self.salevar_comboBox.currentText() + "Top20统计图")  # 可选参数,facecolor为背景颜色
+        plt.title(self.salevar_comboBox.currentText() + "Top20可视化" + self.salechart_comboBox.currentText())  # 加标题
+        dict = {}
+        val = []
+        ind = []
+        for i in range(len(p_new.tolist())):
+            dict[p_new.index[i]] = p_new.tolist()[i]
+        t = sorted(dict.items(), key=lambda x: x[1], reverse=True)
+        i = 0
+        n_qi = 0
+        for x in t:
+            if i < 20:
+                ind.append(x[0])
+                val.append(x[1])
+            else:
+                n_qi += x[1]
+            i += 1
+        return val, ind
 
     def exit_sys(self):
         messageBox = QMessageBox()
