@@ -44,8 +44,9 @@ if __name__ == '__main__':
     pd_data = pd.read_excel("C:/Users/86130/Desktop/第三次测试/附件1：超级大卖场.xls", sheet_name=0)
 
 
-    grouped = pd_data.groupby(pd_data["子类别"])
+    grouped = pd_data.groupby(pd_data["城市"])
     grouped_sum = grouped.sum()
+    print(grouped_sum.columns)
     grouped_sum.drop(["行 ID"],axis =1,inplace = True)
     # print(grouped_sum.index)
     # print(np.array(grouped_sum.values))

@@ -51,11 +51,14 @@ if __name__ == '__main__':
     # plt.plot(ind, val)
     # plt.title('股票每年成交笔数饼图')  # 加标题
     # plt.show()
-    pd_data.drop(["行 ID","订单 ID","订单日期","发货日期","邮寄方式",	"客户 ID","客户名称","细分",
-                  "城市","省/自治区","国家/地区","地区",	"产品 ID","类别","子类别",	"产品名称"],axis =1,inplace = True)
+    drop_list =[]
+    for x in pd_data.columns:
+        if  pd_data[x].dtype == object:
+            print(pd_data[x].dtype)
+            drop_list.append(x)
+    pd_data.drop(drop_list,axis =1,inplace = True)
     corr = pd_data.corr()
-    #ax = plt.subplots(figsize=(15,16))
     ax = sns.heatmap(corr,vmax=.8,square=True,annot=True)
-    plt.xticks(fontsize=20)
-    plt.yticks(fontsize=20)
+    plt.xticks(fontsize=15)
+    plt.yticks(fontsize=15)
     plt.show()
