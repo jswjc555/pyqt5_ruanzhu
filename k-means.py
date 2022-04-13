@@ -8,7 +8,7 @@ import matplotlib.cm as cm
 import numpy as np
 from math import *
 
-def get_kpic(n_clusters):
+def get_kpic(ans):
     n_clusters = ans
     fig, (ax1, ax2) = plt.subplots(1, 2)
     fig.set_size_inches(18, 7)
@@ -67,7 +67,9 @@ if __name__ == "__main__":
     print(pd_data["城市"][0])
     # for i in range(len(pd_data)):
     X = np.array([pd_data["经度"],pd_data["纬度"]])
+    print(X.shape)
     X = X.T
+    print(X.shape)
 
     ans = 0
     last = 0
@@ -83,7 +85,7 @@ if __name__ == "__main__":
               "时，K-means聚类轮廓系数为 :", silhouette_avg)
     print("当聚类中心数量为", ans, "时，轮廓系数最大，聚类效果最好")
     print("聚类中心数量为", ans, "聚类分析...")
-    # get_kpic(ans)
+    get_kpic(ans)
     cluster = KMeans(n_clusters=ans, random_state=0).fit(X)  # 实例化并训练模型
     y_pred = cluster.labels_  # 重要属性labels_，查看聚好的类别
     centroid = cluster.cluster_centers_

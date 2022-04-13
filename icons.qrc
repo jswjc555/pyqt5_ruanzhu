@@ -14,5 +14,8 @@
      <file>icons/review_1.png</file>
      <file>icons/review_2.png</file>
      <file>icons/rewrite.png</file>
+     <file>icons/help.png</file>
+     <file>icons/warning.png</file>
+     <file>icons/tip.png</file>
  </qresource>
  </RCC>

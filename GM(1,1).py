@@ -70,14 +70,14 @@ if __name__ == "__main__":
     # print("安达" in pd_data["城市"].tolist())
 
     # 获取unique年份
-    data_many = pd_data[(pd_data['地区'] == "华东")]
+    data_many = pd_data[(pd_data['城市'] == "杭州")]
     grouped = data_many.groupby(data_many['年份'])
     groued_year = grouped["年份"].unique()
     year = []
     for i in groued_year:
         year.append(int(i[0]))
 
-    grouped = data_many.groupby(data_many["年份"])
+    #grouped = data_many.groupby(data_many["年份"])
 
     # 对分组数据进行统计求和
     grouped_sum = grouped.sum()
@@ -92,7 +92,7 @@ if __name__ == "__main__":
         # 拟合值
         print(x1_pre)
         # 往后预测年数
-        y_n = 3
+        y_n = 5
         # 预测值
         x2_pre = []
         y_year = []

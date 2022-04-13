@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1125</width>
-    <height>762</height>
+    <width>1265</width>
+    <height>843</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,7 +19,7 @@
      <rect>
       <x>20</x>
       <y>110</y>
-      <width>161</width>
+      <width>231</width>
       <height>61</height>
      </rect>
     </property>
@@ -30,10 +30,10 @@
      </font>
     </property>
     <property name="text">
-     <string>销售可视化</string>
+     <string>卖场数据可视化</string>
     </property>
     <property name="icon">
-     <iconset>
+     <iconset resource="icons.qrc">
       <normaloff>:/icons/static.png</normaloff>:/icons/static.png</iconset>
     </property>
     <property name="iconSize">
@@ -48,7 +48,7 @@
      <rect>
       <x>20</x>
       <y>210</y>
-      <width>161</width>
+      <width>231</width>
       <height>61</height>
      </rect>
     </property>
@@ -59,10 +59,10 @@
      </font>
     </property>
     <property name="text">
-     <string>选址可视化</string>
+     <string>卖场分析可视化</string>
     </property>
     <property name="icon">
-     <iconset>
+     <iconset resource="icons.qrc">
       <normaloff>:/icons/locate.png</normaloff>:/icons/locate.png</iconset>
     </property>
     <property name="iconSize">
@@ -77,7 +77,7 @@
      <rect>
       <x>20</x>
       <y>310</y>
-      <width>161</width>
+      <width>231</width>
       <height>61</height>
      </rect>
     </property>
@@ -91,7 +91,7 @@
      <string>我的账户</string>
     </property>
     <property name="icon">
-     <iconset>
+     <iconset resource="icons.qrc">
       <normaloff>:/icons/user.png</normaloff>:/icons/user.png</iconset>
     </property>
     <property name="iconSize">
@@ -106,7 +106,7 @@
      <rect>
       <x>20</x>
       <y>420</y>
-      <width>161</width>
+      <width>231</width>
       <height>61</height>
      </rect>
     </property>
@@ -120,7 +120,7 @@
      <string> 退出系统  </string>
     </property>
     <property name="icon">
-     <iconset>
+     <iconset resource="icons.qrc">
       <normaloff>:/icons/exit.png</normaloff>:/icons/exit.png</iconset>
     </property>
     <property name="iconSize">
@@ -133,14 +133,14 @@
    <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
      <rect>
-      <x>190</x>
-      <y>30</y>
+      <x>270</x>
+      <y>60</y>
       <width>921</width>
       <height>691</height>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -165,8 +165,8 @@
        <widget class="QPushButton" name="saleimportButton">
         <property name="geometry">
          <rect>
-          <x>680</x>
-          <y>40</y>
+          <x>640</x>
+          <y>10</y>
           <width>151</width>
           <height>61</height>
          </rect>
@@ -178,10 +178,10 @@
          </font>
         </property>
         <property name="text">
-         <string>导入数据</string>
+         <string>数据预览</string>
         </property>
         <property name="icon">
-         <iconset>
+         <iconset resource="icons.qrc">
           <normaloff>:/icons/inputstatic.png</normaloff>:/icons/inputstatic.png</iconset>
         </property>
         <property name="iconSize">
@@ -191,31 +191,12 @@
          </size>
         </property>
        </widget>
-       <widget class="QLabel" name="label_8">
-        <property name="geometry">
-         <rect>
-          <x>50</x>
-          <y>30</y>
-          <width>211</width>
-          <height>31</height>
-         </rect>
-        </property>
-        <property name="font">
-         <font>
-          <family>微软雅黑</family>
-          <pointsize>12</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>请输入数据文件路径：</string>
-        </property>
-       </widget>
        <widget class="QLabel" name="label_9">
         <property name="geometry">
          <rect>
-          <x>50</x>
-          <y>80</y>
-          <width>261</width>
+          <x>30</x>
+          <y>20</y>
+          <width>311</width>
           <height>31</height>
          </rect>
         </property>
@@ -226,24 +207,14 @@
          </font>
         </property>
         <property name="text">
-         <string>数据表在文件的表序号：</string>
-        </property>
-       </widget>
-       <widget class="QLineEdit" name="sale_pathEdit">
-        <property name="geometry">
-         <rect>
-          <x>290</x>
-          <y>30</y>
-          <width>281</width>
-          <height>31</height>
-         </rect>
+         <string>数据表在文件的表序号(从0开始):</string>
         </property>
        </widget>
        <widget class="QLineEdit" name="sale_numEdit">
         <property name="geometry">
          <rect>
-          <x>290</x>
-          <y>80</y>
+          <x>340</x>
+          <y>20</y>
           <width>281</width>
           <height>31</height>
          </rect>
@@ -255,10 +226,10 @@
        <widget class="QGroupBox" name="groupBox">
         <property name="geometry">
          <rect>
-          <x>40</x>
-          <y>140</y>
-          <width>861</width>
-          <height>451</height>
+          <x>20</x>
+          <y>80</y>
+          <width>851</width>
+          <height>431</height>
          </rect>
         </property>
         <property name="styleSheet">
@@ -272,8 +243,8 @@
           <rect>
            <x>10</x>
            <y>20</y>
-           <width>841</width>
-           <height>421</height>
+           <width>811</width>
+           <height>391</height>
           </rect>
          </property>
          <property name="rowCount">
@@ -329,18 +300,26 @@
          <column/>
         </widget>
        </widget>
-      </widget>
-      <widget class="QWidget" name="sale_outputtab">
-       <attribute name="title">
-        <string>可视化</string>
-       </attribute>
-       <widget class="QLabel" name="label">
+       <widget class="QLabel" name="num_label1">
         <property name="geometry">
          <rect>
-          <x>230</x>
-          <y>30</y>
-          <width>221</width>
-          <height>31</height>
+          <x>330</x>
+          <y>60</y>
+          <width>301</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="sale_conf">
+        <property name="geometry">
+         <rect>
+          <x>380</x>
+          <y>520</y>
+          <width>151</width>
+          <height>51</height>
          </rect>
         </property>
         <property name="font">
@@ -350,14 +329,29 @@
          </font>
         </property>
         <property name="text">
-         <string>请选择需要分析的变量：</string>
+         <string>数据确认</string>
+        </property>
+        <property name="icon">
+         <iconset resource="icons.qrc">
+          <normaloff>:/icons/input.png</normaloff>:/icons/input.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>35</width>
+          <height>35</height>
+         </size>
         </property>
        </widget>
+      </widget>
+      <widget class="QWidget" name="sale_outputtab">
+       <attribute name="title">
+        <string>可视化</string>
+       </attribute>
        <widget class="QLabel" name="label_2">
         <property name="geometry">
          <rect>
-          <x>230</x>
-          <y>80</y>
+          <x>170</x>
+          <y>270</y>
           <width>221</width>
           <height>31</height>
          </rect>
@@ -375,8 +369,8 @@
        <widget class="QComboBox" name="salevar_comboBox">
         <property name="geometry">
          <rect>
-          <x>480</x>
-          <y>30</y>
+          <x>460</x>
+          <y>160</y>
           <width>201</width>
           <height>31</height>
          </rect>
@@ -385,8 +379,8 @@
        <widget class="QComboBox" name="salechart_comboBox">
         <property name="geometry">
          <rect>
-          <x>480</x>
-          <y>80</y>
+          <x>460</x>
+          <y>270</y>
           <width>201</width>
           <height>31</height>
          </rect>
@@ -395,8 +389,8 @@
        <widget class="QPushButton" name="saleanl_Button">
         <property name="geometry">
          <rect>
-          <x>770</x>
-          <y>80</y>
+          <x>390</x>
+          <y>360</y>
           <width>93</width>
           <height>28</height>
          </rect>
@@ -405,20 +399,36 @@
          <string>确定</string>
         </property>
        </widget>
-       <widget class="QLabel" name="saleoutput_label">
+       <widget class="QLabel" name="label_14">
         <property name="geometry">
          <rect>
-          <x>60</x>
-          <y>130</y>
-          <width>831</width>
-          <height>491</height>
+          <x>170</x>
+          <y>160</y>
+          <width>221</width>
+          <height>31</height>
          </rect>
         </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(229, 229, 229);</string>
+        <property name="font">
+         <font>
+          <family>微软雅黑</family>
+          <pointsize>12</pointsize>
+         </font>
         </property>
         <property name="text">
-         <string/>
+         <string>请选择需要分析的变量：</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="sale_back">
+        <property name="geometry">
+         <rect>
+          <x>390</x>
+          <y>440</y>
+          <width>93</width>
+          <height>28</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>返回</string>
         </property>
        </widget>
       </widget>
@@ -438,7 +448,7 @@
        </rect>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="locate_inputtab">
        <attribute name="title">
@@ -447,8 +457,8 @@
        <widget class="QPushButton" name="locateimportButton">
         <property name="geometry">
          <rect>
-          <x>680</x>
-          <y>40</y>
+          <x>650</x>
+          <y>0</y>
           <width>151</width>
           <height>61</height>
          </rect>
@@ -460,10 +470,10 @@
          </font>
         </property>
         <property name="text">
-         <string>导入数据</string>
+         <string>数据预览</string>
         </property>
         <property name="icon">
-         <iconset>
+         <iconset resource="icons.qrc">
           <normaloff>:/icons/inputstatic.png</normaloff>:/icons/inputstatic.png</iconset>
         </property>
         <property name="iconSize">
@@ -476,8 +486,8 @@
        <widget class="QLineEdit" name="locate_numEdit">
         <property name="geometry">
          <rect>
-          <x>290</x>
-          <y>80</y>
+          <x>340</x>
+          <y>20</y>
           <width>281</width>
           <height>31</height>
          </rect>
@@ -486,41 +496,12 @@
          <string>1</string>
         </property>
        </widget>
-       <widget class="QLineEdit" name="locate_pathEdit">
-        <property name="geometry">
-         <rect>
-          <x>290</x>
-          <y>30</y>
-          <width>281</width>
-          <height>31</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_10">
-        <property name="geometry">
-         <rect>
-          <x>50</x>
-          <y>30</y>
-          <width>211</width>
-          <height>31</height>
-         </rect>
-        </property>
-        <property name="font">
-         <font>
-          <family>微软雅黑</family>
-          <pointsize>12</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>请输入数据文件路径：</string>
-        </property>
-       </widget>
        <widget class="QLabel" name="label_11">
         <property name="geometry">
          <rect>
-          <x>50</x>
-          <y>80</y>
-          <width>261</width>
+          <x>30</x>
+          <y>20</y>
+          <width>301</width>
           <height>31</height>
          </rect>
         </property>
@@ -531,16 +512,16 @@
          </font>
         </property>
         <property name="text">
-         <string>数据表在文件的表序号：</string>
+         <string>数据表在文件的表序号(从0开始)：</string>
         </property>
        </widget>
        <widget class="QGroupBox" name="groupBox_2">
         <property name="geometry">
          <rect>
-          <x>40</x>
-          <y>130</y>
-          <width>871</width>
-          <height>481</height>
+          <x>20</x>
+          <y>60</y>
+          <width>831</width>
+          <height>431</height>
          </rect>
         </property>
         <property name="styleSheet">
@@ -554,8 +535,8 @@
           <rect>
            <x>10</x>
            <y>20</y>
-           <width>841</width>
-           <height>441</height>
+           <width>811</width>
+           <height>401</height>
           </rect>
          </property>
          <property name="rowCount">
@@ -611,6 +592,48 @@
          <column/>
         </widget>
        </widget>
+       <widget class="QLabel" name="num_label2">
+        <property name="geometry">
+         <rect>
+          <x>350</x>
+          <y>70</y>
+          <width>281</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="locate_conf">
+        <property name="geometry">
+         <rect>
+          <x>360</x>
+          <y>510</y>
+          <width>151</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>微软雅黑</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>数据确认</string>
+        </property>
+        <property name="icon">
+         <iconset resource="icons.qrc">
+          <normaloff>:/icons/input.png</normaloff>:/icons/input.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>35</width>
+          <height>35</height>
+         </size>
+        </property>
+       </widget>
       </widget>
       <widget class="QWidget" name="locate_choosetab">
        <attribute name="title">
@@ -619,9 +642,9 @@
        <widget class="QPushButton" name="locate_fcsButton">
         <property name="geometry">
          <rect>
-          <x>360</x>
-          <y>130</y>
-          <width>191</width>
+          <x>290</x>
+          <y>110</y>
+          <width>241</width>
           <height>61</height>
          </rect>
         </property>
@@ -632,10 +655,10 @@
          </font>
         </property>
         <property name="text">
-         <string>销售预测</string>
+         <string>GM(1,1)数据预测</string>
         </property>
         <property name="icon">
-         <iconset>
+         <iconset resource="icons.qrc">
           <normaloff>:/icons/forecast.png</normaloff>:/icons/forecast.png</iconset>
         </property>
         <property name="iconSize">
@@ -648,9 +671,9 @@
        <widget class="QPushButton" name="locate_topsisButton">
         <property name="geometry">
          <rect>
-          <x>360</x>
-          <y>220</y>
-          <width>191</width>
+          <x>290</x>
+          <y>230</y>
+          <width>241</width>
           <height>61</height>
          </rect>
         </property>
@@ -661,10 +684,10 @@
          </font>
         </property>
         <property name="text">
-         <string>Topsis选址</string>
+         <string>Topsis分析</string>
         </property>
         <property name="icon">
-         <iconset>
+         <iconset resource="icons.qrc">
           <normaloff>:/icons/score.png</normaloff>:/icons/score.png</iconset>
         </property>
         <property name="iconSize">
@@ -677,9 +700,9 @@
        <widget class="QPushButton" name="locate_kmeansButton">
         <property name="geometry">
          <rect>
-          <x>360</x>
-          <y>310</y>
-          <width>191</width>
+          <x>290</x>
+          <y>350</y>
+          <width>241</width>
           <height>61</height>
          </rect>
         </property>
@@ -690,10 +713,10 @@
          </font>
         </property>
         <property name="text">
-         <string>K-means选址</string>
+         <string>K-means分析</string>
         </property>
         <property name="icon">
-         <iconset>
+         <iconset resource="icons.qrc">
           <normaloff>:/icons/map.png</normaloff>:/icons/map.png</iconset>
         </property>
         <property name="iconSize">
@@ -703,38 +726,707 @@
          </size>
         </property>
        </widget>
-      </widget>
-      <widget class="QWidget" name="locate_outputtab">
-       <attribute name="title">
-        <string>可视化结果</string>
-       </attribute>
-       <widget class="QLabel" name="locate_outlabel">
+       <widget class="QPushButton" name="ana_back">
         <property name="geometry">
          <rect>
-          <x>10</x>
-          <y>20</y>
-          <width>891</width>
-          <height>551</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(229, 229, 229);</string>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="locate_backButton">
-        <property name="geometry">
-         <rect>
-          <x>430</x>
-          <y>580</y>
+          <x>380</x>
+          <y>470</y>
           <width>93</width>
           <height>28</height>
          </rect>
         </property>
         <property name="text">
          <string>返回</string>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="locate_outputtab">
+       <attribute name="title">
+        <string>可视化结果</string>
+       </attribute>
+       <widget class="QPushButton" name="locate_backButton">
+        <property name="geometry">
+         <rect>
+          <x>350</x>
+          <y>470</y>
+          <width>93</width>
+          <height>28</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>返回</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label">
+        <property name="geometry">
+         <rect>
+          <x>70</x>
+          <y>270</y>
+          <width>321</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>微软雅黑</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>请选择需要使用Topsis分析的变量：</string>
+        </property>
+       </widget>
+       <widget class="QComboBox" name="top_var">
+        <property name="geometry">
+         <rect>
+          <x>420</x>
+          <y>280</y>
+          <width>201</width>
+          <height>22</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="top_conf">
+        <property name="geometry">
+         <rect>
+          <x>340</x>
+          <y>370</y>
+          <width>111</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>微软雅黑</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>确认</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="top_help">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>10</y>
+          <width>36</width>
+          <height>36</height>
+         </rect>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>36</width>
+          <height>36</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>36</width>
+          <height>36</height>
+         </size>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset resource="icons.qrc">
+          <normaloff>:/icons/help.png</normaloff>:/icons/help.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>35</width>
+          <height>35</height>
+         </size>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_8">
+        <property name="geometry">
+         <rect>
+          <x>70</x>
+          <y>90</y>
+          <width>251</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>微软雅黑</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>请选择熵权法赋权重的指标： </string>
+        </property>
+       </widget>
+       <widget class="QGroupBox" name="groupBox_3">
+        <property name="geometry">
+         <rect>
+          <x>600</x>
+          <y>10</y>
+          <width>301</width>
+          <height>591</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(221, 221, 221);</string>
+        </property>
+        <property name="title">
+         <string>帮助</string>
+        </property>
+        <widget class="QTextBrowser" name="textBrowser">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>20</y>
+           <width>261</width>
+           <height>501</height>
+          </rect>
+         </property>
+         <property name="html">
+          <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'SimSun'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600; color:#aa0000;&quot;&gt;提示：&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; color:#ff5500;&quot;&gt;TOPSIS&lt;/span&gt;（Technique for Order Preference by Similarity to Ideal Solution） 可翻译为逼近理想解排序法，国内常简称为优劣解距离法。TOPSIS 法是一种常用的利用原始数据进行综合评价的方法，其基本原理，是通过检测评价对象与最优解、最劣解的距离来进行排序，若评价对象最靠近最优解同时又最远离最劣解，则为最好；否则不为最优。其中最优解的各指标值都达到各评价指标的最优值。最劣解的各指标值都达到各评价指标的最差值。&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; color:#ff5500;&quot;&gt;熵权法&lt;/span&gt;的主要目的是对指标体系进行赋权。熵越大说明系统越混乱，携带的信息越少，权重越小；熵越小说明系统越有序，携带的信息越多，权重越大。熵值法是一种客观赋权方法，借鉴了信息熵思想，它通过计算指标的信息熵，根据指标的相对变化程度对系统整体的影响来决定指标的权重，即根据各个指标标志值的差异程度来进行赋权，从而得出各个指标相应的权重，相对变化程度大的指标具有较大的权重。&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600; color:#aa0000;&quot;&gt;使用建议：&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; color:#ff007f;&quot;&gt;熵权法赋权重变量选择时：&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;通常选择销售总额，总利润，订单量这几个指标。&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; color:#ff007f;&quot;&gt;Topsis分析变量选择时：&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;当选择变量为“商品”时，输出结果为“商品评分”，可作为&lt;span style=&quot; color:#ff5500;&quot;&gt;推广产品&lt;/span&gt;的参考。&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;当选择变量为“城市”时，输出结果为“城市评分”，可作为&lt;span style=&quot; color:#ff5500;&quot;&gt;卖场城市选址&lt;/span&gt;的参考。&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; color:#ff007f;&quot;&gt;数据文件中：&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;请确保选择赋权指标时，数据文件中变量名显示正确！其中，销售额对应变量名“销售额”，利润对应变量名“利润”，订单量对应变量名“数量”&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="help_back">
+         <property name="geometry">
+          <rect>
+           <x>100</x>
+           <y>540</y>
+           <width>93</width>
+           <height>28</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>确认</string>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QGroupBox" name="groupBox_6">
+        <property name="geometry">
+         <rect>
+          <x>70</x>
+          <y>150</y>
+          <width>511</width>
+          <height>71</height>
+         </rect>
+        </property>
+        <property name="title">
+         <string/>
+        </property>
+        <widget class="QCheckBox" name="totalsale_top">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>30</y>
+           <width>91</width>
+           <height>19</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>销售额</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="profit_top">
+         <property name="geometry">
+          <rect>
+           <x>370</x>
+           <y>30</y>
+           <width>91</width>
+           <height>19</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>利润</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="order_top">
+         <property name="geometry">
+          <rect>
+           <x>130</x>
+           <y>30</y>
+           <width>91</width>
+           <height>19</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>数量</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="discount_top">
+         <property name="geometry">
+          <rect>
+           <x>240</x>
+           <y>30</y>
+           <width>91</width>
+           <height>19</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>折扣</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="tab_4">
+       <attribute name="title">
+        <string>页</string>
+       </attribute>
+       <widget class="QLabel" name="label_10">
+        <property name="geometry">
+         <rect>
+          <x>100</x>
+          <y>180</y>
+          <width>311</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>微软雅黑</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>请选择需要预测的变量：</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="forc_cate">
+        <property name="geometry">
+         <rect>
+          <x>430</x>
+          <y>140</y>
+          <width>211</width>
+          <height>21</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QComboBox" name="forc_var">
+        <property name="geometry">
+         <rect>
+          <x>430</x>
+          <y>190</y>
+          <width>211</width>
+          <height>22</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_15">
+        <property name="geometry">
+         <rect>
+          <x>100</x>
+          <y>140</y>
+          <width>361</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>微软雅黑</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>请输入分析变量的细分类别(非必填)：</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_16">
+        <property name="geometry">
+         <rect>
+          <x>100</x>
+          <y>240</y>
+          <width>271</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>微软雅黑</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>请选择预测年数：</string>
+        </property>
+       </widget>
+       <widget class="QComboBox" name="forc_year">
+        <property name="geometry">
+         <rect>
+          <x>430</x>
+          <y>240</y>
+          <width>211</width>
+          <height>22</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="forc_conf">
+        <property name="geometry">
+         <rect>
+          <x>370</x>
+          <y>340</y>
+          <width>111</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>微软雅黑</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>确认</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="forc_backButton">
+        <property name="geometry">
+         <rect>
+          <x>380</x>
+          <y>450</y>
+          <width>93</width>
+          <height>28</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>返回</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="top_help2">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>20</y>
+          <width>36</width>
+          <height>36</height>
+         </rect>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>36</width>
+          <height>36</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>36</width>
+          <height>36</height>
+         </size>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset resource="icons.qrc">
+          <normaloff>:/icons/help.png</normaloff>:/icons/help.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>35</width>
+          <height>35</height>
+         </size>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_17">
+        <property name="geometry">
+         <rect>
+          <x>100</x>
+          <y>90</y>
+          <width>221</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>微软雅黑</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>请选择进行分析的变量：</string>
+        </property>
+       </widget>
+       <widget class="QComboBox" name="ana_var">
+        <property name="geometry">
+         <rect>
+          <x>430</x>
+          <y>90</y>
+          <width>211</width>
+          <height>22</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QGroupBox" name="groupBox_4">
+        <property name="geometry">
+         <rect>
+          <x>600</x>
+          <y>10</y>
+          <width>301</width>
+          <height>591</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(221, 221, 221);</string>
+        </property>
+        <property name="title">
+         <string>帮助</string>
+        </property>
+        <widget class="QTextBrowser" name="textBrowser_3">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>20</y>
+           <width>261</width>
+           <height>501</height>
+          </rect>
+         </property>
+         <property name="html">
+          <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'SimSun'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600; color:#aa0000;&quot;&gt;提示：&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; color:#ff5500;&quot;&gt;灰色预测&lt;/span&gt;是指对系统行为特征值的发展变化进行的预测，对既含有已知信息又含有不确定信息的系统进行的预测，也就是对在一定范围内变化的、与时间序列有关的灰过程进行预测。尽管灰过程中所显示的现象是随机的、杂乱无章的，但毕竟是有序的、有界的，因此得到的数据集合具备潜在的规律。灰色预测是利用这种规律建立灰色模型对灰色系统进行预测。&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;目前使用最广泛的灰色预测模型就是关于数列预测的一个变量、一阶微分的&lt;span style=&quot; color:#ff5500;&quot;&gt;GM(1,1)模型&lt;/span&gt;。它是基于随机的原始时间序列，经按时间累加后所形成的新的时间序列呈现的规律可用一阶线性微分方程的解来逼近。经证明，经一阶线性微分方程的解逼近所揭示的原始时间序列呈指数变化规律。因此，当原始时间序列隐含着指数变化规律时，灰色模型GM(1,1)的预测是非常成功的。&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600; color:#aa0000;&quot;&gt;使用建议：&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; color:#ff007f;&quot;&gt;使用举例1：&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;分析变量选择：城市&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;细分分类别填入：重庆&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;预测变量选择：利润&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;年数选择：2&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;则结果为对城市重庆进行2年期GM（1，1）的利润预测参考&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; color:#ff007f;&quot;&gt;使用举例2：&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;分析变量选择：客户名称&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;细分分类别填入：小明&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;预测变量选择：销售额&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;年数选择：1&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;则结果为对客户小明进行1年期GM（1，1）的销售额预测参考&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="help_back2">
+         <property name="geometry">
+          <rect>
+           <x>100</x>
+           <y>540</y>
+           <width>93</width>
+           <height>28</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>确认</string>
+         </property>
+        </widget>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="tab_5">
+       <attribute name="title">
+        <string>页</string>
+       </attribute>
+       <widget class="QPushButton" name="top_help3">
+        <property name="geometry">
+         <rect>
+          <x>30</x>
+          <y>20</y>
+          <width>36</width>
+          <height>36</height>
+         </rect>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>36</width>
+          <height>36</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>36</width>
+          <height>36</height>
+         </size>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset resource="icons.qrc">
+          <normaloff>:/icons/help.png</normaloff>:/icons/help.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>35</width>
+          <height>35</height>
+         </size>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_18">
+        <property name="geometry">
+         <rect>
+          <x>270</x>
+          <y>45</y>
+          <width>401</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>微软雅黑</family>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>请提前确认数据文件中城市变量已经命名为“城市”</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_19">
+        <property name="geometry">
+         <rect>
+          <x>230</x>
+          <y>40</y>
+          <width>31</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">image: url(:/icons/tip.png);</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_20">
+        <property name="geometry">
+         <rect>
+          <x>210</x>
+          <y>150</y>
+          <width>201</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>微软雅黑</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>请选择拟建仓储个数：</string>
+        </property>
+       </widget>
+       <widget class="QComboBox" name="km_num">
+        <property name="geometry">
+         <rect>
+          <x>460</x>
+          <y>160</y>
+          <width>181</width>
+          <height>22</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QGroupBox" name="groupBox_5">
+        <property name="geometry">
+         <rect>
+          <x>590</x>
+          <y>40</y>
+          <width>301</width>
+          <height>591</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(221, 221, 221);</string>
+        </property>
+        <property name="title">
+         <string>帮助</string>
+        </property>
+        <widget class="QTextBrowser" name="textBrowser_4">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>20</y>
+           <width>261</width>
+           <height>501</height>
+          </rect>
+         </property>
+         <property name="html">
+          <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'SimSun'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600; color:#aa0000;&quot;&gt;提示：&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; color:#ff5500;&quot;&gt;k-means算法&lt;/span&gt;是一种基于划分的聚类算法，它以k为参数，把n个数据对象分成k个簇，使簇内具有较高的相似度，而簇间的相似度较低。&lt;br /&gt;基本思想是根据给定的n个数据对象的数据集，构建k个划分聚类，每个划分聚类即为一个簇。该方法将数据划分为n个簇，每个簇至少有一个数据对象，每个数据对象必须属于而且只能属于一个簇。同时要满足同一簇中的数据对象相似度高，不同簇中的数据对象相似度较小。聚类相似度是利用各簇中对象的均值来进行计算的。&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;为了达到利润最大，&lt;span style=&quot; color:#ff5500;&quot;&gt;假设&lt;/span&gt;运输成本越小，利润越大，并且运输成本与运输距离成正比。根据城市的经纬度数据，使用 K-means 聚类算法得到若干质心，然后分别计算城市到这些质心的最短距离，对于经济因素，市场规模，交通因素的考虑，本软件使用熵权法赋权的 Topsis优劣距离算法将各省份国家统计局 GDP/省份面积，人口密度和运营线路总长度3个指标（2021年数据）建模计算 &lt;span style=&quot; color:#ff5500;&quot;&gt;Topsis 综合评分&lt;/span&gt;。用评分除以 K-means 最短距离得到最终的评分，建立&lt;span style=&quot; color:#ff5500;&quot;&gt;基于 K-means 修正的 Topsis 综合评分模型&lt;/span&gt;。&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600; color:#aa0000;&quot;&gt;使用建议：&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; color:#ff007f;&quot;&gt;选择拟建仓个数后：&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;程序将根据轮廓系数最大原则选择聚类质点个数（3~7），根据城市评分从高到低给出选择建议。&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="help_back3">
+         <property name="geometry">
+          <rect>
+           <x>100</x>
+           <y>540</y>
+           <width>93</width>
+           <height>28</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>确认</string>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QPushButton" name="km_backButton">
+        <property name="geometry">
+         <rect>
+          <x>380</x>
+          <y>470</y>
+          <width>93</width>
+          <height>28</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>返回</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="km_conf">
+        <property name="geometry">
+         <rect>
+          <x>370</x>
+          <y>260</y>
+          <width>111</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>微软雅黑</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>确认</string>
         </property>
        </widget>
       </widget>
@@ -776,10 +1468,10 @@
          </font>
         </property>
         <property name="text">
-         <string>销售可视化记录</string>
+         <string>数据可视化记录</string>
         </property>
         <property name="icon">
-         <iconset>
+         <iconset resource="icons.qrc">
           <normaloff>:/icons/review_1.png</normaloff>:/icons/review_1.png</iconset>
         </property>
         <property name="iconSize">
@@ -805,10 +1497,10 @@
          </font>
         </property>
         <property name="text">
-         <string>选址可视化记录</string>
+         <string>分析可视化记录</string>
         </property>
         <property name="icon">
-         <iconset>
+         <iconset resource="icons.qrc">
           <normaloff>:/icons/review_2.png</normaloff>:/icons/review_2.png</iconset>
         </property>
         <property name="iconSize">
@@ -837,7 +1529,7 @@
          <string>用户信息修改</string>
         </property>
         <property name="icon">
-         <iconset>
+         <iconset resource="icons.qrc">
           <normaloff>:/icons/rewrite.png</normaloff>:/icons/rewrite.png</iconset>
         </property>
         <property name="iconSize">
@@ -1121,8 +1813,8 @@
    <widget class="QLabel" name="time_label">
     <property name="geometry">
      <rect>
-      <x>860</x>
-      <y>10</y>
+      <x>950</x>
+      <y>20</y>
       <width>241</width>
       <height>31</height>
      </rect>
@@ -1147,8 +1839,8 @@ font: 9pt &quot;方正粗黑宋简体&quot;;</string>
    <widget class="QLabel" name="label_12">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>530</y>
+      <x>60</x>
+      <y>510</y>
       <width>161</width>
       <height>131</height>
      </rect>
@@ -1163,11 +1855,23 @@ font: 9pt &quot;方正粗黑宋简体&quot;;</string>
    <widget class="QLabel" name="label_13">
     <property name="geometry">
      <rect>
-      <x>790</x>
-      <y>10</y>
-      <width>61</width>
-      <height>41</height>
+      <x>890</x>
+      <y>20</y>
+      <width>36</width>
+      <height>36</height>
      </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>36</width>
+      <height>36</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>36</width>
+      <height>36</height>
+     </size>
     </property>
     <property name="styleSheet">
      <string notr="true">image: url(:/icons/time.png);</string>
@@ -1182,13 +1886,16 @@ font: 9pt &quot;方正粗黑宋简体&quot;;</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1125</width>
+     <width>1265</width>
      <height>26</height>
     </rect>
    </property>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources/>
+ <resources>
+  <include location="icons.qrc"/>
+  <include location="qss.qrc"/>
+ </resources>
  <connections/>
 </ui>

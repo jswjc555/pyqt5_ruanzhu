@@ -29,7 +29,7 @@ def Score(sta_data,w):
     score = score / np.sum(score)  # 归一化处理
     return score
 
-def get_valind(dict,top):
+def get_valind(t,top):
     val = []
     ind = []
     for i in range(top):
@@ -47,12 +47,12 @@ if __name__ == '__main__':
     grouped = pd_data.groupby(pd_data["城市"])
     grouped_sum = grouped.sum()
     print(grouped_sum.columns)
-    grouped_sum.drop(["行 ID"],axis =1,inplace = True)
-    # print(grouped_sum.index)
+    print(grouped_sum.columns)
     # print(np.array(grouped_sum.values))
     # print(grouped_sum.columns)
     # 熵权法权重
     w = weights(np.array(grouped_sum.values)).round(4)
+    print(np.array(grouped_sum.values))
     sta_data = Standard(np.array(grouped_sum.values))
     sco = Score(sta_data,w)
     print(len(sco))
