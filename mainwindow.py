@@ -14,7 +14,9 @@ import matplotlib.cm as cm
 from sklearn.cluster import KMeans
 from sklearn.metrics import silhouette_samples, silhouette_score
 from math import sqrt
-import matplotlib
+import base64
+import cv2
+import os
 
 # 使用 matplotlib中的FigureCanvas (在使用 Qt5 Backends中 FigureCanvas继承自QtWidgets.QWidget)
 # from PyQt5.QtGui import *
@@ -210,6 +212,7 @@ border-radius:3px;
 
             sql_select = "SELECT * FROM account WHERE user_name=\'" + self.login_username.text() + "\'"
             result = cur.execute(sql_select).fetchall()
+            print(result[0][0])
             if len(result):
                 if result[0][2] != self.login_psw.text():
                     self.label_7.setText("密码错误！")
@@ -218,7 +221,7 @@ border-radius:3px;
                 else:
                     self.login_logButton.setText("")
                     self.login_psw.setText("")
-                    self.main_app = MainApp()
+                    self.main_app = MainApp(result[0][0])
                     self.close()
                     self.main_app.show()
             else:
@@ -299,7 +302,7 @@ border-radius:3px;
         self.regist_confButton.clicked.connect(self.user_regist)
 
 
-def get_kpic(ans,X):
+def get_kpic(ans, X):
     plt.rcParams['font.sans-serif'] = ['SimHei']
     plt.rcParams['axes.unicode_minus'] = False  # 解决保存图像是负号'-'显示为方块的问题
     n_clusters = ans
@@ -351,6 +354,7 @@ def get_kpic(ans,X):
                   "当聚类中心 = %d" % n_clusters),
                  fontsize=14, fontweight='bold')
     plt.show()
+
 
 def Standard(datas):
     try:
@@ -448,18 +452,19 @@ def get_valind(t, top):
 
 
 class MainApp(QMainWindow, ui):
-    def __init__(self):
+    def __init__(self,user_id):
         QMainWindow.__init__(self)
         self.setupUi(self)
         self.handle_ui_change()
         self.handle_buttons()
+        self.user_id =user_id
         # 确认一和确认二分开
         self.datafile = ""
         self.sheet_name = 0
         self.queren = False
-        self.salechart_comboBox.addItems(["饼状图", "条形图", "散点图", "折线图", "热力图"])
-        self.forc_year.addItems(["2", "3", "4", "5"])
-        self.km_num.addItems(["2", "3", "4", "5","6","7"])
+        self.datafile2 = ""
+        self.sheet_name2 = 0
+        self.queren2 = False
         self.long_la_topsisScore = {'唐寨': [116.566, 34.4418, 0.00151814643284275],
                                     '德惠': [125.703327, 44.533909, 0.000408782927458089],
                                     '洛阳': [113.391, 31.5138, 0.00235433135535845],
@@ -1586,10 +1591,16 @@ color:#C0DCF2;
     def handle_ui_change(self):
         self.tabWidget.tabBar().setVisible(False)
         self.userWidget.tabBar().setVisible(False)
-        # self.locate_tab.tabBar().setVisible(False)
+        #self.locate_tab.tabBar().setVisible(False)
         self.hide_help()
         self.hide_help2()
         self.hide_help3()
+        self.ana_view.setHorizontalHeaderLabels(["序号", "操作时间", "细分变量", "预测变量", "预测年数"])
+        self.ana_view2.setHorizontalHeaderLabels(["序号", "操作时间", "赋权指标", "分析变量"])
+        self.ana_view3.setHorizontalHeaderLabels(["序号", "操作时间", "拟建个数"])
+        self.salechart_comboBox.addItems(["饼状图", "条形图", "散点图", "折线图", "热力图"])
+        self.forc_year.addItems(["2", "3", "4", "5"])
+        self.km_num.addItems(["2", "3", "4", "5", "6", "7"])
 
     # 所有Button的消息与槽的通信
     def handle_buttons(self):
@@ -1629,9 +1640,20 @@ color:#C0DCF2;
         self.locate_topsisButton.clicked.connect(self.choose_top)
         self.locate_fcsButton.clicked.connect(self.choose_forc)
         self.locate_kmeansButton.clicked.connect(self.choose_km)
+        # 数据可视化记录
+        self.user_saleButton.clicked.connect(self.data_visual_record)
+
+
+    def data_visual_record(self):
+        time = QDateTime.currentDateTime()
+        ymd = time.toString("yyyy-MM-dd hh:mm:ss")
+        sfm = time.toString("hh:mm:ss")
+        print(ymd)
+        print(sfm)
+        print(self.user_id)
 
     def K_means_queren(self):
-        if not self.queren:
+        if not self.queren2:
             print("请先导入数据")
             return
         plt.rcParams['font.sans-serif'] = ['SimHei']
@@ -1642,7 +1664,7 @@ color:#C0DCF2;
         for i in self.long_la_topsisScore:
             citys.append(i)
             topsis_score.append(self.long_la_topsisScore[i][2])
-            long_la.append([self.long_la_topsisScore[i][0],self.long_la_topsisScore[i][1]])
+            long_la.append([self.long_la_topsisScore[i][0], self.long_la_topsisScore[i][1]])
         X = np.array(long_la)
 
         ans = 0
@@ -1659,27 +1681,28 @@ color:#C0DCF2;
                   "时，K-means聚类轮廓系数为 :", silhouette_avg)
         print("当聚类中心数量为", ans, "时，轮廓系数最大，聚类效果最好")
         print("聚类中心数量为", ans, "聚类分析...")
-        get_kpic(ans,X)
+        get_kpic(ans, X)
         cluster = KMeans(n_clusters=ans, random_state=0).fit(X)  # 实例化并训练模型
         y_pred = cluster.labels_  # 重要属性labels_，查看聚好的类别
         centroid = cluster.cluster_centers_
         distance = []
         for i in range(len(long_la)):
-            distance.append(sqrt(pow(centroid[y_pred[i]][0] - long_la[i][0], 2) + pow(centroid[y_pred[i]][1] - long_la[i][1], 2)))
+            distance.append(
+                sqrt(pow(centroid[y_pred[i]][0] - long_la[i][0], 2) + pow(centroid[y_pred[i]][1] - long_la[i][1], 2)))
         print(distance)
         dictt = {}
         for i in range(len(citys)):
-            dictt[citys[i]] = topsis_score[i]/distance[i]
+            dictt[citys[i]] = topsis_score[i] / distance[i]
         t = sorted(dictt.items(), key=lambda x: x[1], reverse=True)
 
         x_city = []
         y_score = []
-        n=0
+        n = 0
         for i in t:
             if n == int(self.km_num.currentText()):
                 break
             x_city.append(i[0])
-            y_score.append(i[1]*1000)
+            y_score.append(i[1] * 1000)
             n += 1
         plt.figure(figsize=(10, 4))
         plt.grid(alpha=0.4)
@@ -1689,23 +1712,40 @@ color:#C0DCF2;
         plt.ylabel("评价对象", fontsize=12)
         plt.title("拟建议建仓储的" + self.km_num.currentText() + "个城市与相应评分", fontsize=15)
         plt.show()
-
-
-
-
-
+        # 数据库搞一搞
+        time = QDateTime.currentDateTime()
+        ymd = time.toString("yyyy-MM-dd hh:mm:ss")
+        conn = sqlite3.connect('user_m.db')
+        cur = conn.cursor()
+        pname = "ttt.png"
+        plt.savefig(pname)
+        if os.path.exists(pname):
+            with open(pname, 'rb') as f:
+                Pic_byte = f.read()
+                # 字节码进行编码
+                content = base64.b64encode(Pic_byte)
+                sql = f"INSERT INTO KmeansRecord " \
+                      f"(user_id,num_cangku,date_time,width, height, image_bytes) " \
+                      f"VALUES (?,?,?,?,?,?);"
+                cur.execute(sql, (self.user_id,
+                                  self.km_num.currentText(),
+                                   ymd, 418, 412, content))
+                conn.commit()
+        else:
+            print("无法找到图片")
+        os.remove(pname)
 
     def GM_queren(self):
-        if not self.queren:
+        if not self.queren2:
             print("请先导入数据")
             return
         plt.rcParams['font.sans-serif'] = ['SimHei']
         plt.rcParams['axes.unicode_minus'] = False  # 解决保存图像是负号'
-        pd_data = pd.read_excel(self.datafile, sheet_name=self.sheet_name)
+        pd_data = pd.read_excel(self.datafile2, sheet_name=self.sheet_name2)
         pd_data["年份"] = pd_data.apply(lambda x: get_year(x["订单日期"]), axis=1)
-        if not len(self.forc_cate.text())==0:
+        if not len(self.forc_cate.text()) == 0:
             if self.forc_cate.text() not in pd_data[self.ana_var.currentText()].tolist():
-                print("请输入"+self.ana_var.currentText()+"中存在的值！")
+                print("请输入" + self.ana_var.currentText() + "中存在的值！")
                 return
             else:
                 pd_data = pd_data[(pd_data[self.ana_var.currentText()] == self.forc_cate.text())]
@@ -1730,8 +1770,8 @@ color:#C0DCF2;
                     y_year.append(year[0] + i - 1)
             except Exception as e:
                 print(e)
-            s_str = "GM(1,1)以" +str(self.ana_var.currentText())+str(self.forc_cate.text())+\
-                    "为基准对"+str(self.forc_var.currentText())+"的往后"+str(self.forc_year.currentText())+\
+            s_str = "GM(1,1)以" + str(self.ana_var.currentText()) + str(self.forc_cate.text()) + \
+                    "为基准对" + str(self.forc_var.currentText()) + "的往后" + str(self.forc_year.currentText()) + \
                     "年的预测"
             # 画图
             plt.title(s_str, fontsize=15)
@@ -1740,14 +1780,39 @@ color:#C0DCF2;
             plt.plot(y_year, x2_pre, color='g', linestyle="dashed", label="预测值")
             plt.legend(loc='upper right')
             plt.show()
+        # 数据库搞一搞
+        time = QDateTime.currentDateTime()
+        ymd = time.toString("yyyy-MM-dd hh:mm:ss")
+        conn = sqlite3.connect('user_m.db')
+        cur = conn.cursor()
+        pname = "ttt.png"
+        plt.savefig(pname)
+        if os.path.exists(pname):
+            with open(pname, 'rb') as f:
+                Pic_byte = f.read()
+                # 字节码进行编码
+                content = base64.b64encode(Pic_byte)
+                sql = f"INSERT INTO GM11Record " \
+                      f"(user_id,ana_var,xifen_leibie,yuce_var,yuce_year,date_time,width, height, image_bytes) " \
+                      f"VALUES (?,?,?,?,?,?,?,?,?);"
+                cur.execute(sql, (self.user_id,
+                                  self.ana_var.currentText(),
+                                  self.forc_cate.text(),
+                                  self.forc_var.currentText(),
+                                  self.forc_year.currentText(),
+                                  ymd, 418, 412, content))
+                conn.commit()
+        else:
+            print("无法找到图片")
+        os.remove(pname)
 
     def topsis_queren(self):
-        if not self.queren:
+        if not self.queren2:
             print("请先导入数据")
             return
         plt.rcParams['font.sans-serif'] = ['SimHei']
         plt.rcParams['axes.unicode_minus'] = False  # 解决保存图像是负号'-'显示为方块的问题
-        pd_data = pd.read_excel(self.datafile, sheet_name=self.sheet_name)
+        pd_data = pd.read_excel(self.datafile2, sheet_name=self.sheet_name2)
         grouped = pd_data.groupby(pd_data[self.top_var.currentText()])
         grouped_sum = grouped.sum()
         if not self.totalsale_top.isChecked() and \
@@ -1782,7 +1847,7 @@ color:#C0DCF2;
         t = sorted(dictt.items(), key=lambda x: x[1], reverse=True)
         val, ind = get_valind(t, 12)
         for i in range(len(val)):
-            val[i] *=3000
+            val[i] *= 3000
         try:
             plt.figure(figsize=(10, 4))
             plt.grid(alpha=0.4)
@@ -1794,6 +1859,27 @@ color:#C0DCF2;
             plt.show()
         except Exception as e:
             print(e)
+        # 数据库搞一搞
+        time = QDateTime.currentDateTime()
+        ymd = time.toString("yyyy-MM-dd hh:mm:ss")
+        conn = sqlite3.connect('user_m.db')
+        cur = conn.cursor()
+        pname = "ttt.png"
+        plt.savefig(pname)
+        if os.path.exists(pname):
+            with open(pname, 'rb') as f:
+                Pic_byte = f.read()
+                # 字节码进行编码
+                content = base64.b64encode(Pic_byte)
+                sql = f"INSERT INTO topsisRecord " \
+                      f"(user_id,ana_var,quanzhong_zhibiao,date_time,width, height, image_bytes) " \
+                      f"VALUES (?,?,?,?,?,?,?);"
+                cur.execute(sql, (self.user_id, self.top_var.currentText(), s_str, ymd, 418, 412, content))
+                conn.commit()
+        else:
+            print("无法找到图片")
+        os.remove(pname)
+
 
     def show_help(self):
         self.groupBox_3.show()
@@ -1896,6 +1982,29 @@ color:#C0DCF2;
             plt.xticks(fontsize=15)
             plt.yticks(fontsize=15)
             plt.show()
+        # 数据库搞一搞
+        time = QDateTime.currentDateTime()
+        ymd = time.toString("yyyy-MM-dd hh:mm:ss")
+        conn = sqlite3.connect(db_file)
+        cur = conn.cursor()
+        pname = "ttt.png"
+        plt.savefig(pname)
+        if os.path.exists(pname):
+            with open(pname, 'rb') as f:
+                Pic_byte = f.read()
+                # 字节码进行编码
+                content = base64.b64encode(Pic_byte)
+                sql = f"INSERT INTO dataRecord " \
+                      f"(user_id,ana_var,chart_type,date_time,width, height, image_bytes) " \
+                      f"VALUES (?,?,?,?,?,?,?);"
+                cur.execute(sql, (self.user_id,
+                                  self.salevar_comboBox.currentText(),
+                                  self.salechart_comboBox.currentText(),
+                                  ymd, 418, 412, content))
+                conn.commit()
+        else:
+            print("无法找到图片")
+        os.remove(pname)
 
     def handle_file_dialog(self):
         dig = QFileDialog()
@@ -1953,25 +2062,19 @@ color:#C0DCF2;
 
             for i in range(len(pd_data.columns)):
                 self.salevar_comboBox.addItem(pd_data.columns[i])
-                if pd_data[pd_data.columns[i]].dtype == object:
-                    self.top_var.addItem(pd_data.columns[i])
-                    self.ana_var.addItem(pd_data.columns[i])
-                else:
-                    self.forc_var.addItem(pd_data.columns[i])
 
         except Exception as e:
             print(e)
 
-
     def qr2(self):
         print("我是qr2")
-        if self.datafile == "":
+        if self.datafile2 == "":
             print("请先导入数据")
             return
-        self.queren = True
+        self.queren2 = True
         try:
-            pd_data = pd.read_excel(self.datafile, sheet_name=self.sheet_name)
-            table = xlrd.open_workbook(self.datafile)
+            pd_data = pd.read_excel(self.datafile2, sheet_name=self.sheet_name)
+            table = xlrd.open_workbook(self.datafile2)
             if len(self.sale_numEdit.text()) == 0:
                 self.num_label1.setText("请输入要读入的表格编号")
                 return
@@ -1981,13 +2084,12 @@ color:#C0DCF2;
             elif int(self.sale_numEdit.text()) - 1 > len(table.sheets()) - 1:
                 self.num_label1.setText("输入的表格编号超出索引！")
                 return
-            self.sheet_name = int(self.sale_numEdit.text()) - 1
+            self.sheet_name2 = int(self.sale_numEdit.text()) - 1
             table_by_sheet0 = table.sheet_by_index(int(self.sale_numEdit.text()) - 1)
             rows = table_by_sheet0.nrows
             cols = table_by_sheet0.ncols
 
             for i in range(len(pd_data.columns)):
-                self.salevar_comboBox.addItem(pd_data.columns[i])
                 if pd_data[pd_data.columns[i]].dtype == object:
                     self.top_var.addItem(pd_data.columns[i])
                     self.ana_var.addItem(pd_data.columns[i])
@@ -2006,10 +2108,10 @@ color:#C0DCF2;
             # 接受选中文件的路径，默认为列表
             filenames = dig.selectedFiles()
             # 列表中的第一个元素即是文件路径，以只读的方式打开文件
-            self.datafile = filenames[0]
+            self.datafile2 = filenames[0]
             try:
                 table = xlrd.open_workbook(filenames[0])
-                self.sheet_name = int(self.locate_numEdit.text()) - 1
+                self.sheet_name2 = int(self.locate_numEdit.text()) - 1
                 table_by_sheet0 = table.sheet_by_index(int(self.locate_numEdit.text()) - 1)
                 rows = table_by_sheet0.nrows
                 cols = table_by_sheet0.ncols
@@ -2229,7 +2331,7 @@ color:#C0DCF2;
 
 def main():
     app = QApplication(sys.argv)
-    window = MainApp()
+    window = LoginApp()
     window.show()
     app.exec_()
 
