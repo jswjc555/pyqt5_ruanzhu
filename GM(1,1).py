@@ -64,11 +64,6 @@ if __name__ == "__main__":
     pd_data = pd.read_excel("C:/Users/86130/Desktop/第三次测试/附件1：超级大卖场.xls", sheet_name=0)
     # 添加年份列
     pd_data["年份"] = pd_data.apply(lambda x: get_year(x["订单日期"]), axis=1)
-    # #判断是否有该列
-    # print("城市" in pd_data.columns)
-    # #判断某列是否有某值
-    # print("安达" in pd_data["城市"].tolist())
-
     # 获取unique年份
     data_many = pd_data[(pd_data['城市'] == "杭州")]
     grouped = data_many.groupby(data_many['年份'])
@@ -76,17 +71,12 @@ if __name__ == "__main__":
     year = []
     for i in groued_year:
         year.append(int(i[0]))
-
-    #grouped = data_many.groupby(data_many["年份"])
-
     # 对分组数据进行统计求和
     grouped_sum = grouped.sum()
     print(grouped_sum)
-
     #print(grouped_sum["销售额"].tolist())
     # GM(1,1)预测
     x0 = grouped_sum["销售额"].tolist()
-
     a, b, residual_error_max, f, x1_pre,pplltt = GM1_1(x0)
     if pplltt:
         # 拟合值

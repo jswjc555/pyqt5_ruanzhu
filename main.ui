@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>超级卖场销售选址可视化系统</string>
+   <string>超级卖场数据分析可视化系统</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QPushButton" name="saleButton">
@@ -33,7 +33,7 @@
      <string>卖场数据可视化</string>
     </property>
     <property name="icon">
-     <iconset resource="venv/icons.qrc">
+     <iconset resource="icons.qrc">
       <normaloff>:/icons/static.png</normaloff>:/icons/static.png</iconset>
     </property>
     <property name="iconSize">
@@ -62,7 +62,7 @@
      <string>卖场分析可视化</string>
     </property>
     <property name="icon">
-     <iconset resource="venv/icons.qrc">
+     <iconset resource="icons.qrc">
       <normaloff>:/icons/locate.png</normaloff>:/icons/locate.png</iconset>
     </property>
     <property name="iconSize">
@@ -91,7 +91,7 @@
      <string>我的账户</string>
     </property>
     <property name="icon">
-     <iconset resource="venv/icons.qrc">
+     <iconset resource="icons.qrc">
       <normaloff>:/icons/user.png</normaloff>:/icons/user.png</iconset>
     </property>
     <property name="iconSize">
@@ -120,7 +120,7 @@
      <string> 退出系统  </string>
     </property>
     <property name="icon">
-     <iconset resource="venv/icons.qrc">
+     <iconset resource="icons.qrc">
       <normaloff>:/icons/exit.png</normaloff>:/icons/exit.png</iconset>
     </property>
     <property name="iconSize">
@@ -140,7 +140,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -181,7 +181,7 @@
          <string>数据预览</string>
         </property>
         <property name="icon">
-         <iconset resource="venv/icons.qrc">
+         <iconset resource="icons.qrc">
           <normaloff>:/icons/inputstatic.png</normaloff>:/icons/inputstatic.png</iconset>
         </property>
         <property name="iconSize">
@@ -332,7 +332,7 @@
          <string>数据确认</string>
         </property>
         <property name="icon">
-         <iconset resource="venv/icons.qrc">
+         <iconset resource="icons.qrc">
           <normaloff>:/icons/input.png</normaloff>:/icons/input.png</iconset>
         </property>
         <property name="iconSize">
@@ -473,7 +473,7 @@
          <string>数据预览</string>
         </property>
         <property name="icon">
-         <iconset resource="venv/icons.qrc">
+         <iconset resource="icons.qrc">
           <normaloff>:/icons/inputstatic.png</normaloff>:/icons/inputstatic.png</iconset>
         </property>
         <property name="iconSize">
@@ -624,7 +624,7 @@
          <string>数据确认</string>
         </property>
         <property name="icon">
-         <iconset resource="venv/icons.qrc">
+         <iconset resource="icons.qrc">
           <normaloff>:/icons/input.png</normaloff>:/icons/input.png</iconset>
         </property>
         <property name="iconSize">
@@ -658,7 +658,7 @@
          <string>GM(1,1)数据预测</string>
         </property>
         <property name="icon">
-         <iconset resource="venv/icons.qrc">
+         <iconset resource="icons.qrc">
           <normaloff>:/icons/forecast.png</normaloff>:/icons/forecast.png</iconset>
         </property>
         <property name="iconSize">
@@ -687,7 +687,7 @@
          <string>Topsis分析</string>
         </property>
         <property name="icon">
-         <iconset resource="venv/icons.qrc">
+         <iconset resource="icons.qrc">
           <normaloff>:/icons/score.png</normaloff>:/icons/score.png</iconset>
         </property>
         <property name="iconSize">
@@ -716,7 +716,7 @@
          <string>K-means分析</string>
         </property>
         <property name="icon">
-         <iconset resource="venv/icons.qrc">
+         <iconset resource="icons.qrc">
           <normaloff>:/icons/map.png</normaloff>:/icons/map.png</iconset>
         </property>
         <property name="iconSize">
@@ -830,7 +830,7 @@
          <string/>
         </property>
         <property name="icon">
-         <iconset resource="venv/icons.qrc">
+         <iconset resource="icons.qrc">
           <normaloff>:/icons/help.png</normaloff>:/icons/help.png</iconset>
         </property>
         <property name="iconSize">
@@ -1064,7 +1064,7 @@ p, li { white-space: pre-wrap; }
          </font>
         </property>
         <property name="text">
-         <string>请输入分析变量的细分类别(非必填)：</string>
+         <string>请输入分析变量的细分类别：</string>
         </property>
        </widget>
        <widget class="QLabel" name="label_16">
@@ -1153,7 +1153,7 @@ p, li { white-space: pre-wrap; }
          <string/>
         </property>
         <property name="icon">
-         <iconset resource="venv/icons.qrc">
+         <iconset resource="icons.qrc">
           <normaloff>:/icons/help.png</normaloff>:/icons/help.png</iconset>
         </property>
         <property name="iconSize">
@@ -1283,7 +1283,7 @@ p, li { white-space: pre-wrap; }
          <string/>
         </property>
         <property name="icon">
-         <iconset resource="venv/icons.qrc">
+         <iconset resource="icons.qrc">
           <normaloff>:/icons/help.png</normaloff>:/icons/help.png</iconset>
         </property>
         <property name="iconSize">
@@ -1488,7 +1488,7 @@ p, li { white-space: pre-wrap; }
        </rect>
       </property>
       <property name="currentIndex">
-       <number>3</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="user_choosetab">
        <attribute name="title">
@@ -1513,7 +1513,7 @@ p, li { white-space: pre-wrap; }
          <string>数据可视化记录</string>
         </property>
         <property name="icon">
-         <iconset resource="venv/icons.qrc">
+         <iconset resource="icons.qrc">
           <normaloff>:/icons/review_1.png</normaloff>:/icons/review_1.png</iconset>
         </property>
         <property name="iconSize">
@@ -1542,7 +1542,7 @@ p, li { white-space: pre-wrap; }
          <string>分析可视化记录</string>
         </property>
         <property name="icon">
-         <iconset resource="venv/icons.qrc">
+         <iconset resource="icons.qrc">
           <normaloff>:/icons/review_2.png</normaloff>:/icons/review_2.png</iconset>
         </property>
         <property name="iconSize">
@@ -1571,7 +1571,7 @@ p, li { white-space: pre-wrap; }
          <string>用户信息修改</string>
         </property>
         <property name="icon">
-         <iconset resource="venv/icons.qrc">
+         <iconset resource="icons.qrc">
           <normaloff>:/icons/rewrite.png</normaloff>:/icons/rewrite.png</iconset>
         </property>
         <property name="iconSize">
@@ -1932,84 +1932,30 @@ p, li { white-space: pre-wrap; }
        <widget class="QTableWidget" name="sta_view">
         <property name="geometry">
          <rect>
-          <x>80</x>
-          <y>80</y>
-          <width>751</width>
-          <height>291</height>
+          <x>110</x>
+          <y>70</y>
+          <width>691</width>
+          <height>281</height>
          </rect>
         </property>
-        <property name="styleSheet">
-         <string notr="true">self.tableWidget.setColumnWidth(0, 4)
-self.tableWidget.setColumnWidth(1, 200)
-self.tableWidget.setColumnWidth(2, 200)</string>
-        </property>
-        <property name="autoScrollMargin">
-         <number>40</number>
+        <property name="rowCount">
+         <number>5</number>
         </property>
         <property name="columnCount">
          <number>4</number>
         </property>
-        <attribute name="horizontalHeaderVisible">
-         <bool>false</bool>
-        </attribute>
-        <attribute name="horizontalHeaderMinimumSectionSize">
-         <number>30</number>
-        </attribute>
         <attribute name="horizontalHeaderDefaultSectionSize">
          <number>180</number>
         </attribute>
-        <column>
-         <property name="text">
-          <string>序号</string>
-         </property>
-         <property name="font">
-          <font>
-           <family>微软雅黑</family>
-           <pointsize>12</pointsize>
-           <weight>50</weight>
-           <bold>false</bold>
-          </font>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>操作时间</string>
-         </property>
-         <property name="font">
-          <font>
-           <family>微软雅黑</family>
-           <pointsize>12</pointsize>
-           <weight>50</weight>
-           <bold>false</bold>
-          </font>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>分析变量</string>
-         </property>
-         <property name="font">
-          <font>
-           <family>微软雅黑</family>
-           <pointsize>12</pointsize>
-           <weight>50</weight>
-           <bold>false</bold>
-          </font>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>图表类型</string>
-         </property>
-         <property name="font">
-          <font>
-           <family>微软雅黑</family>
-           <pointsize>12</pointsize>
-           <weight>50</weight>
-           <bold>false</bold>
-          </font>
-         </property>
-        </column>
+        <row/>
+        <row/>
+        <row/>
+        <row/>
+        <row/>
+        <column/>
+        <column/>
+        <column/>
+        <column/>
        </widget>
       </widget>
       <widget class="QWidget" name="tab_6">
@@ -2405,8 +2351,8 @@ font: 9pt &quot;方正粗黑宋简体&quot;;</string>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources>
-  <include location="venv/icons.qrc"/>
   <include location="venv/qss.qrc"/>
+  <include location="icons.qrc"/>
  </resources>
  <connections/>
 </ui>

@@ -212,7 +212,6 @@ border-radius:3px;
 
             sql_select = "SELECT * FROM account WHERE user_name=\'" + self.login_username.text() + "\'"
             result = cur.execute(sql_select).fetchall()
-            print(result[0][0])
             if len(result):
                 if result[0][2] != self.login_psw.text():
                     self.label_7.setText("密码错误！")
@@ -411,7 +410,6 @@ def offset(x0, c):
 def GM1_1(x0):
     # 验证数据是否可以用
     if check_data(x0) == 0:
-        print("数据未通过级比检验,结果正确性有风险")
         return 0, 0, 0, 0, 0, False
     else:
         x0 = offset(x0, check_data(x0))
@@ -452,12 +450,12 @@ def get_valind(t, top):
 
 
 class MainApp(QMainWindow, ui):
-    def __init__(self,user_id):
+    def __init__(self, user_id):
         QMainWindow.__init__(self)
         self.setupUi(self)
         self.handle_ui_change()
         self.handle_buttons()
-        self.user_id =user_id
+        self.user_id = user_id
         # 确认一和确认二分开
         self.datafile = ""
         self.sheet_name = 0
@@ -1589,18 +1587,20 @@ color:#C0DCF2;
 
     # UI变化处理
     def handle_ui_change(self):
+        self.salechart_comboBox.addItems(["饼状图", "条形图", "散点图", "折线图", "热力图"])
+        self.forc_year.addItems(["2", "3", "4", "5"])
+        self.km_num.addItems(["2", "3", "4", "5", "6", "7"])
         self.tabWidget.tabBar().setVisible(False)
         self.userWidget.tabBar().setVisible(False)
-        #self.locate_tab.tabBar().setVisible(False)
+        self.locate_tab.tabBar().setVisible(False)
+        self.sale_tabWidget.tabBar().setVisible(False)
         self.hide_help()
         self.hide_help2()
         self.hide_help3()
         self.ana_view.setHorizontalHeaderLabels(["序号", "操作时间", "细分变量", "预测变量", "预测年数"])
         self.ana_view2.setHorizontalHeaderLabels(["序号", "操作时间", "赋权指标", "分析变量"])
         self.ana_view3.setHorizontalHeaderLabels(["序号", "操作时间", "拟建个数"])
-        self.salechart_comboBox.addItems(["饼状图", "条形图", "散点图", "折线图", "热力图"])
-        self.forc_year.addItems(["2", "3", "4", "5"])
-        self.km_num.addItems(["2", "3", "4", "5", "6", "7"])
+        self.sta_view.setHorizontalHeaderLabels(["序号", "操作时间", "选择变量", "图表类型"])
 
     # 所有Button的消息与槽的通信
     def handle_buttons(self):
@@ -1615,6 +1615,9 @@ color:#C0DCF2;
         self.exitButton.clicked.connect(self.exit_sys)
         self.user_infButton.clicked.connect(self.show_userchoice)
         self.changeback_Button.clicked.connect(self.show_userfirst)
+        self.sta_back.clicked.connect(self.show_userfirst)
+        self.ana_back.clicked.connect(self.show_userfirst)
+        self.ana_back2.clicked.connect(self.show_userfirst)
         self.user_logButton.clicked.connect(self.handle_login)
         self.user_editButton.clicked.connect(self.handle_rewrite)
         # 导入数据
@@ -1641,20 +1644,23 @@ color:#C0DCF2;
         self.locate_fcsButton.clicked.connect(self.choose_forc)
         self.locate_kmeansButton.clicked.connect(self.choose_km)
         # 数据可视化记录
-        self.user_saleButton.clicked.connect(self.data_visual_record)
+        self.user_saleButton.clicked.connect(self.open_sta_tab)
+        self.user_locateButton.clicked.connect(self.open_ana_tab)
+        # 查看图片
+        self.sta_browse.clicked.connect(self.open_sta_pic)
+        self.ana_browse.clicked.connect(self.open_GM_pic)
+        self.ana_browse2.clicked.connect(self.open_topsis_pic)
+        self.ana_browse3.clicked.connect(self.open_kmeans_pic)
+        # 删除记录
+        self.sta_delete.clicked.connect(self.del_sta)
+        self.ana_delete.clicked.connect(self.del_GM)
+        self.ana_delete2.clicked.connect(self.del_topsis)
+        self.ana_delete3.clicked.connect(self.del_kmeans)
 
-
-    def data_visual_record(self):
-        time = QDateTime.currentDateTime()
-        ymd = time.toString("yyyy-MM-dd hh:mm:ss")
-        sfm = time.toString("hh:mm:ss")
-        print(ymd)
-        print(sfm)
-        print(self.user_id)
 
     def K_means_queren(self):
         if not self.queren2:
-            print("请先导入数据")
+            self.statusBar().showMessage("请先导入数据", 5000)
             return
         plt.rcParams['font.sans-serif'] = ['SimHei']
         plt.rcParams['axes.unicode_minus'] = False  # 解决保存图像是负号'-'显示为方块的问题
@@ -1677,10 +1683,9 @@ color:#C0DCF2;
             if silhouette_avg > last:
                 ans = n_clusters
                 last = silhouette_avg
-            print("当聚类中心数量 =", n_clusters,
-                  "时，K-means聚类轮廓系数为 :", silhouette_avg)
-        print("当聚类中心数量为", ans, "时，轮廓系数最大，聚类效果最好")
-        print("聚类中心数量为", ans, "聚类分析...")
+            self.km_narr.append("当聚类中心数量 =" + str(n_clusters) + "时，K-means聚类轮廓系数为 :" + str(silhouette_avg) + "\n")
+        self.km_na2.append("当聚类中心数量为" + str(ans) + "时，轮廓系数最大，聚类效果最好")
+        QtWidgets.QApplication.processEvents()
         get_kpic(ans, X)
         cluster = KMeans(n_clusters=ans, random_state=0).fit(X)  # 实例化并训练模型
         y_pred = cluster.labels_  # 重要属性labels_，查看聚好的类别
@@ -1689,7 +1694,6 @@ color:#C0DCF2;
         for i in range(len(long_la)):
             distance.append(
                 sqrt(pow(centroid[y_pred[i]][0] - long_la[i][0], 2) + pow(centroid[y_pred[i]][1] - long_la[i][1], 2)))
-        print(distance)
         dictt = {}
         for i in range(len(citys)):
             dictt[citys[i]] = topsis_score[i] / distance[i]
@@ -1729,7 +1733,7 @@ color:#C0DCF2;
                       f"VALUES (?,?,?,?,?,?);"
                 cur.execute(sql, (self.user_id,
                                   self.km_num.currentText(),
-                                   ymd, 418, 412, content))
+                                  ymd, 418, 412, content))
                 conn.commit()
         else:
             print("无法找到图片")
@@ -1737,7 +1741,7 @@ color:#C0DCF2;
 
     def GM_queren(self):
         if not self.queren2:
-            print("请先导入数据")
+            self.statusBar().showMessage("请先导入数据", 5000)
             return
         plt.rcParams['font.sans-serif'] = ['SimHei']
         plt.rcParams['axes.unicode_minus'] = False  # 解决保存图像是负号'
@@ -1745,10 +1749,13 @@ color:#C0DCF2;
         pd_data["年份"] = pd_data.apply(lambda x: get_year(x["订单日期"]), axis=1)
         if not len(self.forc_cate.text()) == 0:
             if self.forc_cate.text() not in pd_data[self.ana_var.currentText()].tolist():
-                print("请输入" + self.ana_var.currentText() + "中存在的值！")
+                self.statusBar().showMessage("请输入" + self.ana_var.currentText() + "中存在的值！", 5000)
                 return
             else:
                 pd_data = pd_data[(pd_data[self.ana_var.currentText()] == self.forc_cate.text())]
+        else:
+            self.statusBar().showMessage("请输入分析变量的细分类别",5000)
+            return
         grouped = pd_data.groupby(pd_data['年份'])
         groued_year = grouped["年份"].unique()
         year = []
@@ -1756,8 +1763,12 @@ color:#C0DCF2;
             year.append(int(i[0]))
         grouped_sum = grouped.sum()
         # GM(1,1)预测
+        print(3)
         x0 = grouped_sum[self.forc_var.currentText()].tolist()
         a, b, residual_error_max, f, x1_pre, pplltt = GM1_1(x0)
+        print(4)
+        if pplltt == False:
+            self.statusBar().showMessage("数据未通过级比检验,结果正确性有风险", 5000)
         if pplltt:
             # 往后预测年数
             y_n = int(self.forc_year.currentText())
@@ -1808,7 +1819,7 @@ color:#C0DCF2;
 
     def topsis_queren(self):
         if not self.queren2:
-            print("请先导入数据")
+            self.statusBar().showMessage("请先导入数据", 5000)
             return
         plt.rcParams['font.sans-serif'] = ['SimHei']
         plt.rcParams['axes.unicode_minus'] = False  # 解决保存图像是负号'-'显示为方块的问题
@@ -1819,7 +1830,7 @@ color:#C0DCF2;
                 not self.order_top.isChecked() and \
                 not self.discount_top.isChecked() and \
                 not self.profit_top.isChecked():
-            print("请至少选择一个指标")
+            self.statusBar().showMessage("请至少选择一个指标", 5000)
             return
         s_str = ""
         if not self.totalsale_top.isChecked():
@@ -1880,7 +1891,6 @@ color:#C0DCF2;
             print("无法找到图片")
         os.remove(pname)
 
-
     def show_help(self):
         self.groupBox_3.show()
 
@@ -1899,6 +1909,169 @@ color:#C0DCF2;
     def hide_help3(self):
         self.groupBox_5.hide()
 
+    # 删除记录
+    def del_sta(self):
+        conn = sqlite3.connect(db_file)
+        cur = conn.cursor()
+        sql = f"delete from dataRecord where data_record_id=?"
+        cur.execute(sql, [self.sta_combo.currentText()])
+        conn.commit()
+        self.sta_view.clear()
+        self.sta_view.setHorizontalHeaderLabels(["序号", "操作时间", "选择变量", "图表类型"])
+        self.sta_combo.clear()
+        sql = f"SELECT data_record_id," \
+              f"date_time," \
+              f"ana_var," \
+              f"chart_type FROM dataRecord WHERE user_id=?"
+        result = cur.execute(sql, [self.user_id]).fetchall()
+        rows = len(result)
+        cols = len(result[0])
+        self.sta_view.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.sta_view.clear()
+        self.sta_view.setHorizontalHeaderLabels(["序号", "操作时间", "选择变量", "图表类型"])
+        for i in range(rows):
+            self.sta_combo.addItem(str(result[i][0]))
+            for j in range(cols):
+                item = QtWidgets.QTableWidgetItem(str(result[i][j]))
+                self.sta_view.setItem(i, j, item)
+
+    def del_GM(self):
+        conn = sqlite3.connect(db_file)
+        cur = conn.cursor()
+        sql = f"delete from GM11Record where data_record_id=?"
+        cur.execute(sql, [self.ana_combo.currentText()])
+        conn.commit()
+        self.ana_view.clear()
+        self.ana_view.setHorizontalHeaderLabels(["序号", "操作时间", "细分变量", "预测变量", "预测年数"])
+        self.ana_combo.clear()
+        sql = f"SELECT data_record_id," \
+              f"date_time," \
+              f"xifen_leibie," \
+              f"yuce_var," \
+              f"yuce_year FROM GM11Record WHERE user_id=?"
+        result = cur.execute(sql, [self.user_id]).fetchall()
+        rows = len(result)
+        cols = len(result[0])
+        self.ana_view.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.ana_view.clear()
+        self.ana_view.setHorizontalHeaderLabels(["序号", "操作时间", "细分变量", "预测变量", "预测年数"])
+        for i in range(rows):
+            self.ana_combo.addItem(str(result[i][0]))
+            for j in range(cols):
+                item = QtWidgets.QTableWidgetItem(str(result[i][j]))
+                self.ana_view.setItem(i, j, item)
+
+    def del_topsis(self):
+        conn = sqlite3.connect(db_file)
+        cur = conn.cursor()
+        sql = f"delete from topsisRecord where data_record_id=?"
+        cur.execute(sql, [self.ana_combo2.currentText()])
+        conn.commit()
+        self.ana_view2.clear()
+        self.ana_view2.setHorizontalHeaderLabels(["序号", "操作时间", "赋权指标", "分析变量"])
+        self.ana_combo2.clear()
+        sql = f"SELECT data_record_id," \
+              f"date_time," \
+              f"quanzhong_zhibiao," \
+              f"ana_var FROM topsisRecord WHERE user_id=?"
+        result = cur.execute(sql, [self.user_id]).fetchall()
+        rows = len(result)
+        cols = len(result[0])
+        self.ana_view2.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.ana_view2.clear()
+        self.ana_view2.setHorizontalHeaderLabels(["序号", "操作时间", "赋权指标", "分析变量"])
+        for i in range(rows):
+            self.ana_combo2.addItem(str(result[i][0]))
+            for j in range(cols):
+                item = QtWidgets.QTableWidgetItem(str(result[i][j]))
+                self.ana_view2.setItem(i, j, item)
+
+    def del_kmeans(self):
+        conn = sqlite3.connect(db_file)
+        cur = conn.cursor()
+        sql = f"delete from KmeansRecord where data_record_id=?"
+        cur.execute(sql, [self.ana_combo3.currentText()])
+        conn.commit()
+        self.ana_view3.clear()
+        self.ana_view3.setHorizontalHeaderLabels(["序号", "操作时间", "拟建个数"])
+        self.ana_combo3.clear()
+        sql = f"SELECT data_record_id," \
+              f"date_time," \
+              f"num_cangku FROM KmeansRecord WHERE user_id=?"
+        result = cur.execute(sql, [self.user_id]).fetchall()
+        rows = len(result)
+        cols = len(result[0])
+        self.ana_view3.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.ana_view3.clear()
+        self.ana_view3.setHorizontalHeaderLabels(["序号", "操作时间", "拟建个数"])
+        for i in range(rows):
+            self.ana_combo3.addItem(str(result[i][0]))
+            for j in range(cols):
+                item = QtWidgets.QTableWidgetItem(str(result[i][j]))
+                self.ana_view3.setItem(i, j, item)
+
+
+    # 打开图片
+    def open_sta_pic(self):
+        conn = sqlite3.connect(db_file)
+        cur = conn.cursor()
+        sql = f"SELECT image_bytes FROM dataRecord WHERE data_record_id=?"
+        cur.execute(sql,[self.sta_combo.currentText()])
+        value = cur.fetchone()
+        if value:
+            #base64编码对应的解码（解码完字符串）
+            str_encode=base64.b64decode(value[0])
+            # 将open方法读取的字节码转为opencv格式的数据
+            nparr = np.frombuffer(str_encode, np.uint8)
+            img_decode = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+            cv2.imshow("img",img_decode)
+            cv2.waitKey(0)
+
+    def open_GM_pic(self):
+        conn = sqlite3.connect(db_file)
+        cur = conn.cursor()
+        sql = f"SELECT image_bytes FROM GM11Record WHERE data_record_id=?"
+        cur.execute(sql, [self.ana_combo.currentText()])
+        value = cur.fetchone()
+        if value:
+            # base64编码对应的解码（解码完字符串）
+            str_encode = base64.b64decode(value[0])
+            # 将open方法读取的字节码转为opencv格式的数据
+            nparr = np.frombuffer(str_encode, np.uint8)
+            img_decode = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+            cv2.imshow("img", img_decode)
+            cv2.waitKey(0)
+
+    def open_topsis_pic(self):
+        conn = sqlite3.connect(db_file)
+        cur = conn.cursor()
+        sql = f"SELECT image_bytes FROM topsisRecord WHERE data_record_id=?"
+        cur.execute(sql, [self.ana_combo2.currentText()])
+        value = cur.fetchone()
+        if value:
+            # base64编码对应的解码（解码完字符串）
+            str_encode = base64.b64decode(value[0])
+            # 将open方法读取的字节码转为opencv格式的数据
+            nparr = np.frombuffer(str_encode, np.uint8)
+            img_decode = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+            cv2.imshow("img", img_decode)
+            cv2.waitKey(0)
+
+    def open_kmeans_pic(self):
+        conn = sqlite3.connect(db_file)
+        cur = conn.cursor()
+        sql = f"SELECT image_bytes FROM KmeansRecord WHERE data_record_id=?"
+        cur.execute(sql, [self.ana_combo3.currentText()])
+        value = cur.fetchone()
+        if value:
+            # base64编码对应的解码（解码完字符串）
+            str_encode = base64.b64decode(value[0])
+            # 将open方法读取的字节码转为opencv格式的数据
+            nparr = np.frombuffer(str_encode, np.uint8)
+            img_decode = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+            cv2.imshow("img", img_decode)
+            cv2.waitKey(0)
+
     # 选项卡联动
     def open_sale_tab(self):
         self.tabWidget.setCurrentIndex(0)
@@ -1913,6 +2086,84 @@ color:#C0DCF2;
     def open_user_tab(self):
         self.tabWidget.setCurrentIndex(2)
         self.userWidget.setCurrentIndex(0)
+
+    def open_sta_tab(self):
+        conn = sqlite3.connect(db_file)
+        cur = conn.cursor()
+        sql = f"SELECT data_record_id," \
+              f"date_time," \
+              f"ana_var," \
+              f"chart_type FROM dataRecord WHERE user_id=?"
+        result = cur.execute(sql, [self.user_id]).fetchall()
+        rows = len(result)
+        cols = len(result[0])
+        self.sta_view.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.sta_view.clear()
+        self.sta_view.setHorizontalHeaderLabels(["序号", "操作时间", "选择变量", "图表类型"])
+        self.sta_combo.clear()
+        for i in range(rows):
+            self.sta_combo.addItem(str(result[i][0]))
+            for j in range(cols):
+                item = QtWidgets.QTableWidgetItem(str(result[i][j]))
+                self.sta_view.setItem(i,j,item)
+        self.userWidget.setCurrentIndex(2)
+
+    def open_ana_tab(self):
+        # GM(1,1)
+        conn = sqlite3.connect(db_file)
+        cur = conn.cursor()
+        sql = f"SELECT data_record_id," \
+              f"date_time," \
+              f"xifen_leibie," \
+              f"yuce_var," \
+              f"yuce_year FROM GM11Record WHERE user_id=?"
+        result = cur.execute(sql, [self.user_id]).fetchall()
+        rows = len(result)
+        cols = len(result[0])
+        self.ana_view.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.ana_view.clear()
+        self.ana_view.setHorizontalHeaderLabels(["序号", "操作时间", "细分变量", "预测变量", "预测年数"])
+        self.ana_combo.clear()
+        for i in range(rows):
+            self.ana_combo.addItem(str(result[i][0]))
+            for j in range(cols):
+                item = QtWidgets.QTableWidgetItem(str(result[i][j]))
+                self.ana_view.setItem(i,j,item)
+        # Topsis分析
+        sql = f"SELECT data_record_id," \
+              f"date_time," \
+              f"quanzhong_zhibiao," \
+              f"ana_var FROM topsisRecord WHERE user_id=?"
+        result = cur.execute(sql, [self.user_id]).fetchall()
+        rows = len(result)
+        cols = len(result[0])
+        self.ana_view2.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.ana_view2.clear()
+        self.ana_view2.setHorizontalHeaderLabels(["序号", "操作时间", "赋权指标", "分析变量"])
+        self.ana_combo2.clear()
+        for i in range(rows):
+            self.ana_combo2.addItem(str(result[i][0]))
+            for j in range(cols):
+                item = QtWidgets.QTableWidgetItem(str(result[i][j]))
+                self.ana_view2.setItem(i, j, item)
+        # Kmeans分析
+        sql = f"SELECT data_record_id," \
+              f"date_time," \
+              f"num_cangku FROM KmeansRecord WHERE user_id=?"
+        result = cur.execute(sql, [self.user_id]).fetchall()
+        rows = len(result)
+        cols = len(result[0])
+        self.ana_view3.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.ana_view3.clear()
+        self.ana_view3.setHorizontalHeaderLabels(["序号", "操作时间", "拟建个数"])
+        self.ana_combo3.clear()
+        for i in range(rows):
+            self.ana_combo3.addItem(str(result[i][0]))
+            for j in range(cols):
+                item = QtWidgets.QTableWidgetItem(str(result[i][j]))
+                self.ana_view3.setItem(i, j, item)
+        self.userWidget.setCurrentIndex(3)
+
 
     def choose_top(self):
         self.locate_tab.setCurrentIndex(2)
@@ -2038,9 +2289,8 @@ color:#C0DCF2;
                 print(e)
 
     def qr1(self):
-        print("我是qr1")
         if self.datafile == "":
-            print("请先导入数据")
+            self.statusBar().showMessage("请先导入数据", 5000)
             return
         self.queren = True
         try:
@@ -2055,6 +2305,7 @@ color:#C0DCF2;
             elif int(self.sale_numEdit.text()) - 1 > len(table.sheets()) - 1:
                 self.num_label1.setText("输入的表格编号超出索引！")
                 return
+            self.sale_tabWidget.setCurrentIndex(1)
             self.sheet_name = int(self.sale_numEdit.text()) - 1
             table_by_sheet0 = table.sheet_by_index(int(self.sale_numEdit.text()) - 1)
             rows = table_by_sheet0.nrows
@@ -2067,9 +2318,8 @@ color:#C0DCF2;
             print(e)
 
     def qr2(self):
-        print("我是qr2")
         if self.datafile2 == "":
-            print("请先导入数据")
+            self.statusBar().showMessage("请先导入数据", 5000)
             return
         self.queren2 = True
         try:
@@ -2084,6 +2334,7 @@ color:#C0DCF2;
             elif int(self.sale_numEdit.text()) - 1 > len(table.sheets()) - 1:
                 self.num_label1.setText("输入的表格编号超出索引！")
                 return
+            self.locate_tab.setCurrentIndex(1)
             self.sheet_name2 = int(self.sale_numEdit.text()) - 1
             table_by_sheet0 = table.sheet_by_index(int(self.sale_numEdit.text()) - 1)
             rows = table_by_sheet0.nrows

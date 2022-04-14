@@ -37,38 +37,48 @@ conn = sqlite3.connect('user_m.db')
 cur = conn.cursor()
 pname = "ttt.png"
 Pic_byte = None
-huahua(pname)
-if os.path.exists(pname):
-    with open(pname, 'rb') as f:
-        Pic_byte = f.read()
-        # 字节码进行编码
-        content = base64.b64encode(Pic_byte)
-        sql = f"INSERT INTO dataRecord " \
-              f"(user_id,ana_var,chart_type,date_time,width, height, image_bytes) " \
-              f"VALUES (?,?,?,?,?,?,?);"
-        cur.execute(sql, (55, "城市", "饼状图", ymd, 418, 412, content))
-        conn.commit()
-else:
-    print("无法找到图片")
+# huahua(pname)
+# if os.path.exists(pname):
+#     with open(pname, 'rb') as f:
+#         Pic_byte = f.read()
+#         # 字节码进行编码
+#         content = base64.b64encode(Pic_byte)
+#         sql = f"INSERT INTO dataRecord " \
+#               f"(user_id,ana_var,chart_type,date_time,width, height, image_bytes) " \
+#               f"VALUES (?,?,?,?,?,?,?);"
+#         cur.execute(sql, (55, "城市", "饼状图", ymd, 418, 412, content))
+#         conn.commit()
+# else:
+#     print("无法找到图片")
+#
+#
+# # 删除图片
+# os.remove("ttt.png")
 
 
-# 删除图片
-os.remove("ttt.png")
+# # # 读取数据库的图片数据
+# sql = f"SELECT image_bytes FROM dataRecord WHERE data_record_id=?"
+# cur.execute(sql,[8])
+# value = cur.fetchone()
+# if value:
+#     #base64编码对应的解码（解码完字符串）
+#     str_encode=base64.b64decode(value[0])
+#     # 将open方法读取的字节码转为opencv格式的数据
+#     nparr = np.frombuffer(str_encode, np.uint8)
+#     img_decode = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+#     cv2.imshow("img",img_decode)
+#     cv2.waitKey(0)
 
+# 搜索用户记录用来显示在表上
+# sql = f"SELECT data_record_id date_time" \
+#       f"ana_var chart_type FROM dataRecord WHERE data_record_id=?"
+sql = f"SELECT data_record_id," \
+      f"date_time," \
+      f"ana_var," \
+      f"chart_type FROM dataRecord WHERE user_id=?"
 
-# # 读取数据库的图片数据
-sql = f"SELECT image_bytes FROM dataRecord WHERE data_record_id=?"
-cur.execute(sql,[8])
-value = cur.fetchone()
-if value:
-    #base64编码对应的解码（解码完字符串）
-    str_encode=base64.b64decode(value[0])
-    # 将open方法读取的字节码转为opencv格式的数据
-    nparr = np.frombuffer(str_encode, np.uint8)
-    img_decode = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
-    cv2.imshow("img",img_decode)
-    cv2.waitKey(0)
-
+result = cur.execute(sql,[57]).fetchall()
+print(result[0][0])
 
 
 # #1.打开数据库，获得连接对象
